@@ -1,6 +1,6 @@
-[submodule "cjson"]
-	path = cjson
-	url = git@github.com:mpx/lua-cjson.git
 [submodule "luajit-2.1"]
 	path = luajit-2.1
 	url = https://luajit.org/git/luajit.git
+[submodule "cjson"]
+	path = cjson
+	url = git@github.com:openresty/lua-cjson.git
