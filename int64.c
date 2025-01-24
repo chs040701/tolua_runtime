@@ -1,4 +1,4 @@
-﻿/*
+/*
 The MIT License (MIT)
 
 Copyright (c) 2015-2016 topameng(topameng@qq.com)
@@ -25,11 +25,11 @@ SOFTWARE.
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
-#include <stdint.h>
 #include <inttypes.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <ctype.h>
+#include <limits.h>
 
 #include "lua.h"
 #include "lualib.h"
@@ -40,7 +40,7 @@ static bool _isint64(lua_State* L, int pos)
 {
     if (lua_getmetatable(L, pos))
     {            
-        lua_getref(L, LUA_RIDX_INT64); 
+        lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_INT64)); 
         int equal = lua_rawequal(L, -1, -2);
         lua_pop(L, 2);  
         return equal;
@@ -99,7 +99,7 @@ LUALIB_API void tolua_pushint64(lua_State* L, int64_t n)
     {*/
         int64_t* p = (int64_t*)lua_newuserdata(L, sizeof(int64_t));
         *p = n;
-        lua_getref(L, LUA_RIDX_INT64);
+        lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_INT64));
         lua_setmetatable(L, -2);            
     //}
 }
@@ -377,7 +377,7 @@ void tolua_openint64(lua_State* L)
     lua_pushvalue(L, -1);
     lua_setglobal(L, "int64");
 
-    lua_getref(L, LUA_RIDX_LOADED);
+    lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_LOADED));
     lua_pushstring(L, "int64");
     lua_pushvalue(L, -3);
     lua_rawset(L, -3);

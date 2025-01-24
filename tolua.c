@@ -111,7 +111,7 @@ LUALIB_API void tolua_freebuffer(void* buffer)
 
 LUALIB_API void tolua_getvec2(lua_State *L, int pos, float* x, float* y)
 {
-	lua_getref(L, LUA_RIDX_UNPACKVEC2);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_UNPACKVEC2));
 	lua_pushvalue(L, pos);
 	lua_call(L, 1, 2);
 	*x = (float)lua_tonumber(L, -2);
@@ -121,7 +121,7 @@ LUALIB_API void tolua_getvec2(lua_State *L, int pos, float* x, float* y)
 
 LUALIB_API void tolua_getvec3(lua_State *L, int pos, float* x, float* y, float* z)
 {
-	lua_getref(L, LUA_RIDX_UNPACKVEC3);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_UNPACKVEC3));
 	lua_pushvalue(L, pos);
 	lua_call(L, 1, 3);
     *x = (float)lua_tonumber(L, -3);
@@ -132,7 +132,7 @@ LUALIB_API void tolua_getvec3(lua_State *L, int pos, float* x, float* y, float* 
 
 LUALIB_API void tolua_getvec4(lua_State *L, int pos, float* x, float* y, float* z, float* w)
 {
-	lua_getref(L, LUA_RIDX_UNPACKVEC4);
+    lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_UNPACKVEC4));
 	lua_pushvalue(L, pos);
 	lua_call(L, 1, 4);
 	*x = (float)lua_tonumber(L, -4);
@@ -144,7 +144,7 @@ LUALIB_API void tolua_getvec4(lua_State *L, int pos, float* x, float* y, float* 
 
 LUALIB_API void tolua_getquat(lua_State *L, int pos, float* x, float* y, float* z, float* w)
 {
-	lua_getref(L, LUA_RIDX_UNPACKQUAT);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_UNPACKQUAT));
 	lua_pushvalue(L, pos);
 	lua_call(L, 1, 4);
 	*x = (float)lua_tonumber(L, -4);
@@ -156,7 +156,7 @@ LUALIB_API void tolua_getquat(lua_State *L, int pos, float* x, float* y, float* 
 
 LUALIB_API void tolua_getclr(lua_State *L, int pos, float* r, float* g, float* b, float* a)
 {
-	lua_getref(L, LUA_RIDX_UNPACKCLR);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_UNPACKCLR));
 	lua_pushvalue(L, pos);
 	lua_call(L, 1, 4);
 	*r = (float)lua_tonumber(L, -4);
@@ -173,7 +173,7 @@ LUALIB_API int tolua_getlayermask(lua_State *L, int pos)
         return (int)lua_tointeger(L, pos);
     }
 
-    lua_getref(L, LUA_RIDX_UNPACKLAYERMASK);
+    lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_UNPACKLAYERMASK));
     lua_pushvalue(L, pos);
     lua_call(L, 1, 1);
     int mask = (int)lua_tointeger(L, -1);
@@ -183,7 +183,7 @@ LUALIB_API int tolua_getlayermask(lua_State *L, int pos)
 
 LUALIB_API void tolua_pushvec2(lua_State *L, float x, float y)
 {
-	lua_getref(L, LUA_RIDX_PACKVEC2);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_PACKVEC2));
 	lua_pushnumber(L, x);
 	lua_pushnumber(L, y);
 	lua_call(L, 2, 1);
@@ -191,7 +191,7 @@ LUALIB_API void tolua_pushvec2(lua_State *L, float x, float y)
 
 LUALIB_API void tolua_pushvec3(lua_State *L, float x, float y, float z)
 {
-	lua_getref(L, LUA_RIDX_PACKVEC3);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_PACKVEC3));
 	lua_pushnumber(L, x);
 	lua_pushnumber(L, y);
 	lua_pushnumber(L, z);
@@ -200,7 +200,7 @@ LUALIB_API void tolua_pushvec3(lua_State *L, float x, float y, float z)
 
 LUALIB_API void tolua_pushvec4(lua_State *L, float x, float y, float z, float w)
 {
-	lua_getref(L, LUA_RIDX_PACKVEC4);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_PACKVEC4));
 	lua_pushnumber(L, x);
 	lua_pushnumber(L, y);
 	lua_pushnumber(L, z);
@@ -210,7 +210,7 @@ LUALIB_API void tolua_pushvec4(lua_State *L, float x, float y, float z, float w)
 
 LUALIB_API void tolua_pushquat(lua_State *L, float x, float y, float z, float w)
 {
-	lua_getref(L, LUA_RIDX_PACKQUAT);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_PACKQUAT));
 	lua_pushnumber(L, x);
 	lua_pushnumber(L, y);
 	lua_pushnumber(L, z);
@@ -220,7 +220,7 @@ LUALIB_API void tolua_pushquat(lua_State *L, float x, float y, float z, float w)
 
 LUALIB_API void tolua_pushclr(lua_State *L, float r, float g, float b, float a)
 {
-	lua_getref(L, LUA_RIDX_PACKCLR);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_PACKCLR));
 	lua_pushnumber(L, r);
 	lua_pushnumber(L, g);
 	lua_pushnumber(L, b);
@@ -230,7 +230,7 @@ LUALIB_API void tolua_pushclr(lua_State *L, float r, float g, float b, float a)
 
 LUALIB_API void tolua_pushlayermask(lua_State *L, int mask)
 {
-    lua_getref(L, LUA_RIDX_PACKLAYERMASK);
+    lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_PACKLAYERMASK));
     lua_pushnumber(L, mask);
     lua_call(L, 1, 1);
 }
@@ -444,7 +444,7 @@ static bool _preload(lua_State *L)
 
     if (!lua_isnil(L, -1))                  //stack: t key mt space
     {                      
-        lua_getref(L, LUA_RIDX_PRELOAD);    //stack: t key mt space preload
+        lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_PRELOAD));    //stack: t key mt space preload
         lua_pushvalue(L, -2);               //stack: t key mt space preload space
         lua_pushstring(L, ".");             //stack: t key mt space preload space.
         lua_pushvalue(L, 2);                //stack: t key mt space preload space.key
@@ -455,7 +455,7 @@ static bool _preload(lua_State *L)
         if (!lua_isnil(L, -1)) 
         {      
             lua_pop(L, 1);                      //stack: t key mt space preload key1
-            lua_getref(L, LUA_RIDX_REQUIRE);    //stack: t key mt space preload key1 require
+            lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_REQUIRE));    //stack: t key mt space preload key1 require
             lua_pushvalue(L, -2);
             lua_call(L, 1, 1);                         
             return true;
@@ -1043,7 +1043,7 @@ LUALIB_API void tolua_setnewindex(lua_State *L)
 
 LUALIB_API bool tolua_pushudata(lua_State *L, int index)
 {
-	lua_getref(L, LUA_RIDX_UBOX);			// stack: ubox
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_UBOX));			// stack: ubox
 	lua_rawgeti(L, -1, index); 				// stack: ubox, obj
 
 	if (!lua_isnil(L, -1))
@@ -1058,9 +1058,9 @@ LUALIB_API bool tolua_pushudata(lua_State *L, int index)
 
 LUALIB_API void tolua_pushnewudata(lua_State *L, int metaRef, int index)
 {
-	lua_getref(L, LUA_RIDX_UBOX);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_UBOX));
 	tolua_newudata(L, index);
-	lua_getref(L, metaRef);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (metaRef));
 	lua_setmetatable(L, -2);
 	lua_pushvalue(L, -1);
 	lua_rawseti(L, -3, index);
@@ -1083,7 +1083,7 @@ static int module_index_event(lua_State *L)
 
     if (!lua_isnil(L, -1))                  //stack: t key space
     {                      
-        lua_getref(L, LUA_RIDX_PRELOAD);    //stack: t key space preload
+        lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_PRELOAD));    //stack: t key space preload
         lua_pushvalue(L, -2);
         lua_pushstring(L, ".");
         lua_pushvalue(L, 2);
@@ -1094,7 +1094,7 @@ static int module_index_event(lua_State *L)
         if (!lua_isnil(L, -1)) 
         {      
             lua_pop(L, 1);                      //stack: t key space preload key1
-            lua_getref(L, LUA_RIDX_REQUIRE);
+            lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_REQUIRE));
             lua_pushvalue(L, -2);
             lua_call(L, 1, 1);                    
         }
@@ -1269,7 +1269,7 @@ static void _pushfullname(lua_State *L, int pos)
 
 static void _addtoloaded(lua_State *L)
 {
-    lua_getref(L, LUA_RIDX_LOADED);
+    lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_LOADED));
     _pushfullname(L, -3);
     lua_pushvalue(L, -3);
     lua_rawset(L, -3);
@@ -1291,12 +1291,12 @@ LUALIB_API int tolua_beginclass(lua_State *L, const char *name, int baseType, in
     }
     else
     {
-        lua_getref(L, reference);    
+        lua_rawgeti(L, LUA_REGISTRYINDEX, (reference));    
     }
 
     if (baseType != 0)
     {
-        lua_getref(L, baseType);        
+        lua_rawgeti(L, LUA_REGISTRYINDEX, (baseType));        
         lua_setmetatable(L, -2);
     }
            
@@ -1469,7 +1469,7 @@ LUALIB_API void tolua_variable(lua_State *L, const char *name, lua_CFunction get
 LUALIB_API int toluaL_ref(lua_State *L)
 {
 	int stackPos = abs_index(L, -1);	
-	lua_getref(L, LUA_RIDX_FIXEDMAP);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_FIXEDMAP));
 	lua_pushvalue(L, stackPos);
 	lua_rawget(L, -2);
 
@@ -1493,8 +1493,8 @@ LUALIB_API int toluaL_ref(lua_State *L)
 
 LUALIB_API void toluaL_unref(lua_State *L, int reference)
 {
-	lua_getref(L, LUA_RIDX_FIXEDMAP);
-	lua_getref(L, reference);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_FIXEDMAP));
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (reference));
 	lua_pushnil(L);
 	lua_rawset(L, -3);
 	luaL_unref(L, LUA_REGISTRYINDEX, reference);
@@ -1512,7 +1512,7 @@ LUA_API lua_State* tolua_getmainstate(lua_State *L1)
 LUA_API int tolua_getvaluetype(lua_State *L, int stackPos)
 {
 	stackPos = abs_index(L, stackPos);
-	lua_getref(L, LUA_RIDX_CHECKVALUE);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_CHECKVALUE));
 	lua_pushvalue(L, stackPos);
 	lua_call(L, 1, 1);
 	int ret = (int)lua_tonumber(L, -1);
@@ -1603,7 +1603,7 @@ LUALIB_API bool tolua_beginpremodule(lua_State *L, const char *path, int szhint)
 
 LUALIB_API bool tolua_endpremodule(lua_State *L, int ref)
 {    
-    lua_getref(L, ref);
+    lua_rawgeti(L, LUA_REGISTRYINDEX, (ref));
     lua_pushstring(L, ".name");
     lua_rawget(L, -2);                
 
@@ -1804,7 +1804,7 @@ static int traceback(lua_State *L)
 #ifdef LUAJIT_VERSION            
         luaL_traceback(L, L1, msg, level);
 #else        
-        lua_getref(L, LUA_RIDX_TRACEBACK);
+        lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_TRACEBACK));
         lua_pushthread(L1);
         lua_pushvalue(L, arg + 1);
         lua_pushnumber(L, level + 1);
@@ -1817,15 +1817,15 @@ static int traceback(lua_State *L)
 
 LUALIB_API int tolua_beginpcall(lua_State *L, int reference)
 {	
-    lua_getref(L, LUA_RIDX_CUSTOMTRACEBACK);
+    lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_CUSTOMTRACEBACK));
 	int top = lua_gettop(L);
-	lua_getref(L, reference);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (reference));
 	return top;
 }
 
 LUALIB_API void tolua_pushtraceback(lua_State *L)
 {
-	lua_getref(L, LUA_RIDX_CUSTOMTRACEBACK);
+	lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_CUSTOMTRACEBACK));
 }
 
 /*static const int sentinel_ = 0;
@@ -1920,8 +1920,8 @@ void tolua_openrequire(lua_State *L)
 LUALIB_API int tolua_require(lua_State *L, const char *fileName)
 {
     int top = lua_gettop(L);
-    lua_getref(L, LUA_RIDX_CUSTOMTRACEBACK);
-    lua_getref(L, LUA_RIDX_REQUIRE);
+    lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_CUSTOMTRACEBACK));
+    lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_REQUIRE));
     lua_pushstring(L, fileName);        
     int ret = lua_pcall(L, 1, -1, top + 1);
     lua_remove(L, top + 1);    
@@ -2056,7 +2056,7 @@ static int tolua_bnd_setpeer(lua_State *L)
         //lua_pushvalue(L, 1);
         //lua_rawseti(L, -2, 1);
 
-        lua_getref(L, LUA_RIDX_VPTR);       //stack: u p vt mt
+        lua_rawgeti(L, LUA_REGISTRYINDEX, (LUA_RIDX_VPTR));       //stack: u p vt mt
         lua_setmetatable(L, -2);            //stack: u p vt
 
         lua_pushstring(L, "base");          //stack: u p vt "base"
