@@ -6,7 +6,7 @@ DEST_D=$CWD/macjit
 
 export MACOSX_DEPLOYMENT_TARGET=10.8
 
-@rm $DEST_D/*.a
+rm $DEST_D/*.a
 cd $LUAJIT_D
 
 make clean
