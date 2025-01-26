@@ -7,6 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17F0E7D32D468811001AD289 /* auxiliar.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7D22D468811001AD289 /* auxiliar.c */; };
+		17F0E7FA2D468853001AD289 /* options.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7D52D468851001AD289 /* options.c */; };
+		17F0E7FB2D468853001AD289 /* luasocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7D92D468851001AD289 /* luasocket.c */; };
+		17F0E7FC2D468853001AD289 /* compat.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7DA2D468851001AD289 /* compat.c */; };
+		17F0E7FD2D468853001AD289 /* inet.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7DB2D468851001AD289 /* inet.c */; };
+		17F0E7FE2D468853001AD289 /* timeout.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7DC2D468851001AD289 /* timeout.c */; };
+		17F0E7FF2D468853001AD289 /* select.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7DD2D468851001AD289 /* select.c */; };
+		17F0E8002D468853001AD289 /* unix.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7DE2D468851001AD289 /* unix.c */; };
+		17F0E8022D468853001AD289 /* unixdgram.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7E52D468852001AD289 /* unixdgram.c */; };
+		17F0E8032D468853001AD289 /* tcp.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7E72D468852001AD289 /* tcp.c */; };
+		17F0E8042D468853001AD289 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7E92D468852001AD289 /* buffer.c */; };
+		17F0E8052D468853001AD289 /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7EA2D468852001AD289 /* serial.c */; };
+		17F0E8062D468853001AD289 /* udp.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7EB2D468852001AD289 /* udp.c */; };
+		17F0E8072D468853001AD289 /* socket.lua in Resources */ = {isa = PBXBuildFile; fileRef = 17F0E7EC2D468852001AD289 /* socket.lua */; };
+		17F0E8082D468853001AD289 /* except.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7ED2D468852001AD289 /* except.c */; };
+		17F0E8092D468853001AD289 /* unixstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7F02D468853001AD289 /* unixstream.c */; };
+		17F0E80A2D468853001AD289 /* io.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7F22D468853001AD289 /* io.c */; };
+		17F0E80B2D468853001AD289 /* mime.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7F52D468853001AD289 /* mime.c */; };
+		17F0E80C2D468853001AD289 /* usocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 17F0E7F82D468853001AD289 /* usocket.c */; };
 		4928EF782D43887400125F44 /* lua_cjson.c in Sources */ = {isa = PBXBuildFile; fileRef = 4928EF682D43887400125F44 /* lua_cjson.c */; };
 		4928EF7B2D43887400125F44 /* fpconv.c in Sources */ = {isa = PBXBuildFile; fileRef = 4928EF652D43887400125F44 /* fpconv.c */; };
 		4928EF7C2D43887400125F44 /* strbuf.c in Sources */ = {isa = PBXBuildFile; fileRef = 4928EF732D43887400125F44 /* strbuf.c */; };
@@ -18,22 +37,6 @@
 		84F8B8B31C45678E00AE9B8F /* tolua.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8B21C45678E00AE9B8F /* tolua.c */; };
 		84F8B8B51C45679700AE9B8F /* struct.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8B41C45679700AE9B8F /* struct.c */; };
 		84F8B8B71C45679C00AE9B8F /* lpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8B61C45679C00AE9B8F /* lpeg.c */; };
-		84F8B8DB1C4567C100AE9B8F /* auxiliar.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8B91C4567C100AE9B8F /* auxiliar.c */; };
-		84F8B8DC1C4567C100AE9B8F /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8BB1C4567C100AE9B8F /* buffer.c */; };
-		84F8B8DD1C4567C100AE9B8F /* except.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8BD1C4567C100AE9B8F /* except.c */; };
-		84F8B8DE1C4567C100AE9B8F /* inet.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8BF1C4567C100AE9B8F /* inet.c */; };
-		84F8B8DF1C4567C100AE9B8F /* io.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8C11C4567C100AE9B8F /* io.c */; };
-		84F8B8E01C4567C100AE9B8F /* luasocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8C31C4567C100AE9B8F /* luasocket.c */; };
-		84F8B8E11C4567C100AE9B8F /* luasocket_scripts.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8C51C4567C100AE9B8F /* luasocket_scripts.c */; };
-		84F8B8E21C4567C100AE9B8F /* mime.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8C71C4567C100AE9B8F /* mime.c */; };
-		84F8B8E31C4567C100AE9B8F /* options.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8C91C4567C100AE9B8F /* options.c */; };
-		84F8B8E41C4567C100AE9B8F /* select.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8CB1C4567C100AE9B8F /* select.c */; };
-		84F8B8E51C4567C100AE9B8F /* serial.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8CD1C4567C100AE9B8F /* serial.c */; };
-		84F8B8E61C4567C100AE9B8F /* tcp.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8CF1C4567C100AE9B8F /* tcp.c */; };
-		84F8B8E71C4567C100AE9B8F /* timeout.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8D11C4567C100AE9B8F /* timeout.c */; };
-		84F8B8E81C4567C100AE9B8F /* udp.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8D31C4567C100AE9B8F /* udp.c */; };
-		84F8B8E91C4567C100AE9B8F /* unix.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8D51C4567C100AE9B8F /* unix.c */; };
-		84F8B8EA1C4567C100AE9B8F /* usocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 84F8B8D71C4567C100AE9B8F /* usocket.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +44,44 @@
 		0F4B04D71800959F002EA938 /* tolua-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tolua-Info.plist"; sourceTree = "<group>"; };
 		0F4B04D91800959F002EA938 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0F4B04DB1800959F002EA938 /* tolua-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "tolua-Prefix.pch"; sourceTree = "<group>"; };
+		17F0E7D12D468811001AD289 /* auxiliar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = auxiliar.h; path = src/auxiliar.h; sourceTree = "<group>"; };
+		17F0E7D22D468811001AD289 /* auxiliar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = auxiliar.c; path = src/auxiliar.c; sourceTree = "<group>"; };
+		17F0E7D42D468851001AD289 /* except.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = except.h; path = src/except.h; sourceTree = "<group>"; };
+		17F0E7D52D468851001AD289 /* options.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = options.c; path = src/options.c; sourceTree = "<group>"; };
+		17F0E7D62D468851001AD289 /* io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = io.h; path = src/io.h; sourceTree = "<group>"; };
+		17F0E7D72D468851001AD289 /* luasocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = luasocket.h; path = src/luasocket.h; sourceTree = "<group>"; };
+		17F0E7D82D468851001AD289 /* socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = socket.h; path = src/socket.h; sourceTree = "<group>"; };
+		17F0E7D92D468851001AD289 /* luasocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = luasocket.c; path = src/luasocket.c; sourceTree = "<group>"; };
+		17F0E7DA2D468851001AD289 /* compat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = compat.c; path = src/compat.c; sourceTree = "<group>"; };
+		17F0E7DB2D468851001AD289 /* inet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inet.c; path = src/inet.c; sourceTree = "<group>"; };
+		17F0E7DC2D468851001AD289 /* timeout.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = timeout.c; path = src/timeout.c; sourceTree = "<group>"; };
+		17F0E7DD2D468851001AD289 /* select.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = select.c; path = src/select.c; sourceTree = "<group>"; };
+		17F0E7DE2D468851001AD289 /* unix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unix.c; path = src/unix.c; sourceTree = "<group>"; };
+		17F0E7DF2D468851001AD289 /* mime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mime.h; path = src/mime.h; sourceTree = "<group>"; };
+		17F0E7E12D468852001AD289 /* inet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inet.h; path = src/inet.h; sourceTree = "<group>"; };
+		17F0E7E22D468852001AD289 /* pierror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pierror.h; path = src/pierror.h; sourceTree = "<group>"; };
+		17F0E7E32D468852001AD289 /* timeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timeout.h; path = src/timeout.h; sourceTree = "<group>"; };
+		17F0E7E42D468852001AD289 /* unix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unix.h; path = src/unix.h; sourceTree = "<group>"; };
+		17F0E7E52D468852001AD289 /* unixdgram.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unixdgram.c; path = src/unixdgram.c; sourceTree = "<group>"; };
+		17F0E7E62D468852001AD289 /* unixdgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unixdgram.h; path = src/unixdgram.h; sourceTree = "<group>"; };
+		17F0E7E72D468852001AD289 /* tcp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tcp.c; path = src/tcp.c; sourceTree = "<group>"; };
+		17F0E7E92D468852001AD289 /* buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = buffer.c; path = src/buffer.c; sourceTree = "<group>"; };
+		17F0E7EA2D468852001AD289 /* serial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = serial.c; path = src/serial.c; sourceTree = "<group>"; };
+		17F0E7EB2D468852001AD289 /* udp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = udp.c; path = src/udp.c; sourceTree = "<group>"; };
+		17F0E7EC2D468852001AD289 /* socket.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = socket.lua; path = src/socket.lua; sourceTree = "<group>"; };
+		17F0E7ED2D468852001AD289 /* except.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = except.c; path = src/except.c; sourceTree = "<group>"; };
+		17F0E7EE2D468853001AD289 /* compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = compat.h; path = src/compat.h; sourceTree = "<group>"; };
+		17F0E7EF2D468853001AD289 /* select.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = select.h; path = src/select.h; sourceTree = "<group>"; };
+		17F0E7F02D468853001AD289 /* unixstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = unixstream.c; path = src/unixstream.c; sourceTree = "<group>"; };
+		17F0E7F12D468853001AD289 /* tcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tcp.h; path = src/tcp.h; sourceTree = "<group>"; };
+		17F0E7F22D468853001AD289 /* io.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = io.c; path = src/io.c; sourceTree = "<group>"; };
+		17F0E7F32D468853001AD289 /* usocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = usocket.h; path = src/usocket.h; sourceTree = "<group>"; };
+		17F0E7F42D468853001AD289 /* udp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = udp.h; path = src/udp.h; sourceTree = "<group>"; };
+		17F0E7F52D468853001AD289 /* mime.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mime.c; path = src/mime.c; sourceTree = "<group>"; };
+		17F0E7F62D468853001AD289 /* unixstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unixstream.h; path = src/unixstream.h; sourceTree = "<group>"; };
+		17F0E7F72D468853001AD289 /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = buffer.h; path = src/buffer.h; sourceTree = "<group>"; };
+		17F0E7F82D468853001AD289 /* usocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = usocket.c; path = src/usocket.c; sourceTree = "<group>"; };
+		17F0E7F92D468853001AD289 /* options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = options.h; path = src/options.h; sourceTree = "<group>"; };
 		4928EF652D43887400125F44 /* fpconv.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fpconv.c; sourceTree = "<group>"; };
 		4928EF682D43887400125F44 /* lua_cjson.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lua_cjson.c; sourceTree = "<group>"; };
 		4928EF732D43887400125F44 /* strbuf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = strbuf.c; sourceTree = "<group>"; };
@@ -52,38 +93,6 @@
 		84F8B8B21C45678E00AE9B8F /* tolua.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tolua.c; path = ../../tolua.c; sourceTree = "<group>"; };
 		84F8B8B41C45679700AE9B8F /* struct.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = struct.c; path = ../../struct.c; sourceTree = "<group>"; };
 		84F8B8B61C45679C00AE9B8F /* lpeg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lpeg.c; path = ../../lpeg.c; sourceTree = "<group>"; };
-		84F8B8B91C4567C100AE9B8F /* auxiliar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = auxiliar.c; sourceTree = "<group>"; };
-		84F8B8BA1C4567C100AE9B8F /* auxiliar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = auxiliar.h; sourceTree = "<group>"; };
-		84F8B8BB1C4567C100AE9B8F /* buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buffer.c; sourceTree = "<group>"; };
-		84F8B8BC1C4567C100AE9B8F /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
-		84F8B8BD1C4567C100AE9B8F /* except.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = except.c; sourceTree = "<group>"; };
-		84F8B8BE1C4567C100AE9B8F /* except.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = except.h; sourceTree = "<group>"; };
-		84F8B8BF1C4567C100AE9B8F /* inet.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inet.c; sourceTree = "<group>"; };
-		84F8B8C01C4567C100AE9B8F /* inet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inet.h; sourceTree = "<group>"; };
-		84F8B8C11C4567C100AE9B8F /* io.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = io.c; sourceTree = "<group>"; };
-		84F8B8C21C4567C100AE9B8F /* io.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = io.h; sourceTree = "<group>"; };
-		84F8B8C31C4567C100AE9B8F /* luasocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = luasocket.c; sourceTree = "<group>"; };
-		84F8B8C41C4567C100AE9B8F /* luasocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luasocket.h; sourceTree = "<group>"; };
-		84F8B8C51C4567C100AE9B8F /* luasocket_scripts.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = luasocket_scripts.c; sourceTree = "<group>"; };
-		84F8B8C61C4567C100AE9B8F /* luasocket_scripts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luasocket_scripts.h; sourceTree = "<group>"; };
-		84F8B8C71C4567C100AE9B8F /* mime.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mime.c; sourceTree = "<group>"; };
-		84F8B8C81C4567C100AE9B8F /* mime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mime.h; sourceTree = "<group>"; };
-		84F8B8C91C4567C100AE9B8F /* options.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = options.c; sourceTree = "<group>"; };
-		84F8B8CA1C4567C100AE9B8F /* options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = options.h; sourceTree = "<group>"; };
-		84F8B8CB1C4567C100AE9B8F /* select.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = select.c; sourceTree = "<group>"; };
-		84F8B8CC1C4567C100AE9B8F /* select.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = select.h; sourceTree = "<group>"; };
-		84F8B8CD1C4567C100AE9B8F /* serial.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = serial.c; sourceTree = "<group>"; };
-		84F8B8CE1C4567C100AE9B8F /* socket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socket.h; sourceTree = "<group>"; };
-		84F8B8CF1C4567C100AE9B8F /* tcp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tcp.c; sourceTree = "<group>"; };
-		84F8B8D01C4567C100AE9B8F /* tcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tcp.h; sourceTree = "<group>"; };
-		84F8B8D11C4567C100AE9B8F /* timeout.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = timeout.c; sourceTree = "<group>"; };
-		84F8B8D21C4567C100AE9B8F /* timeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timeout.h; sourceTree = "<group>"; };
-		84F8B8D31C4567C100AE9B8F /* udp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = udp.c; sourceTree = "<group>"; };
-		84F8B8D41C4567C100AE9B8F /* udp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = udp.h; sourceTree = "<group>"; };
-		84F8B8D51C4567C100AE9B8F /* unix.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unix.c; sourceTree = "<group>"; };
-		84F8B8D61C4567C100AE9B8F /* unix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unix.h; sourceTree = "<group>"; };
-		84F8B8D71C4567C100AE9B8F /* usocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = usocket.c; sourceTree = "<group>"; };
-		84F8B8D81C4567C100AE9B8F /* usocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = usocket.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,38 +174,44 @@
 		84F8B8B81C4567C100AE9B8F /* luasocket */ = {
 			isa = PBXGroup;
 			children = (
-				84F8B8B91C4567C100AE9B8F /* auxiliar.c */,
-				84F8B8BA1C4567C100AE9B8F /* auxiliar.h */,
-				84F8B8BB1C4567C100AE9B8F /* buffer.c */,
-				84F8B8BC1C4567C100AE9B8F /* buffer.h */,
-				84F8B8BD1C4567C100AE9B8F /* except.c */,
-				84F8B8BE1C4567C100AE9B8F /* except.h */,
-				84F8B8BF1C4567C100AE9B8F /* inet.c */,
-				84F8B8C01C4567C100AE9B8F /* inet.h */,
-				84F8B8C11C4567C100AE9B8F /* io.c */,
-				84F8B8C21C4567C100AE9B8F /* io.h */,
-				84F8B8C31C4567C100AE9B8F /* luasocket.c */,
-				84F8B8C41C4567C100AE9B8F /* luasocket.h */,
-				84F8B8C51C4567C100AE9B8F /* luasocket_scripts.c */,
-				84F8B8C61C4567C100AE9B8F /* luasocket_scripts.h */,
-				84F8B8C71C4567C100AE9B8F /* mime.c */,
-				84F8B8C81C4567C100AE9B8F /* mime.h */,
-				84F8B8C91C4567C100AE9B8F /* options.c */,
-				84F8B8CA1C4567C100AE9B8F /* options.h */,
-				84F8B8CB1C4567C100AE9B8F /* select.c */,
-				84F8B8CC1C4567C100AE9B8F /* select.h */,
-				84F8B8CD1C4567C100AE9B8F /* serial.c */,
-				84F8B8CE1C4567C100AE9B8F /* socket.h */,
-				84F8B8CF1C4567C100AE9B8F /* tcp.c */,
-				84F8B8D01C4567C100AE9B8F /* tcp.h */,
-				84F8B8D11C4567C100AE9B8F /* timeout.c */,
-				84F8B8D21C4567C100AE9B8F /* timeout.h */,
-				84F8B8D31C4567C100AE9B8F /* udp.c */,
-				84F8B8D41C4567C100AE9B8F /* udp.h */,
-				84F8B8D51C4567C100AE9B8F /* unix.c */,
-				84F8B8D61C4567C100AE9B8F /* unix.h */,
-				84F8B8D71C4567C100AE9B8F /* usocket.c */,
-				84F8B8D81C4567C100AE9B8F /* usocket.h */,
+				17F0E7D22D468811001AD289 /* auxiliar.c */,
+				17F0E7D12D468811001AD289 /* auxiliar.h */,
+				17F0E7EE2D468853001AD289 /* compat.h */,
+				17F0E7E92D468852001AD289 /* buffer.c */,
+				17F0E7F72D468853001AD289 /* buffer.h */,
+				17F0E7DA2D468851001AD289 /* compat.c */,
+				17F0E7ED2D468852001AD289 /* except.c */,
+				17F0E7DB2D468851001AD289 /* inet.c */,
+				17F0E7E12D468852001AD289 /* inet.h */,
+				17F0E7F22D468853001AD289 /* io.c */,
+				17F0E7D92D468851001AD289 /* luasocket.c */,
+				17F0E7D42D468851001AD289 /* except.h */,
+				17F0E7D62D468851001AD289 /* io.h */,
+				17F0E7D72D468851001AD289 /* luasocket.h */,
+				17F0E7F52D468853001AD289 /* mime.c */,
+				17F0E7DF2D468851001AD289 /* mime.h */,
+				17F0E7D52D468851001AD289 /* options.c */,
+				17F0E7F92D468853001AD289 /* options.h */,
+				17F0E7E22D468852001AD289 /* pierror.h */,
+				17F0E7DD2D468851001AD289 /* select.c */,
+				17F0E7EF2D468853001AD289 /* select.h */,
+				17F0E7EA2D468852001AD289 /* serial.c */,
+				17F0E7D82D468851001AD289 /* socket.h */,
+				17F0E7EC2D468852001AD289 /* socket.lua */,
+				17F0E7E72D468852001AD289 /* tcp.c */,
+				17F0E7F12D468853001AD289 /* tcp.h */,
+				17F0E7DC2D468851001AD289 /* timeout.c */,
+				17F0E7E32D468852001AD289 /* timeout.h */,
+				17F0E7EB2D468852001AD289 /* udp.c */,
+				17F0E7F42D468853001AD289 /* udp.h */,
+				17F0E7DE2D468851001AD289 /* unix.c */,
+				17F0E7E42D468852001AD289 /* unix.h */,
+				17F0E7E52D468852001AD289 /* unixdgram.c */,
+				17F0E7E62D468852001AD289 /* unixdgram.h */,
+				17F0E7F02D468853001AD289 /* unixstream.c */,
+				17F0E7F62D468853001AD289 /* unixstream.h */,
+				17F0E7F82D468853001AD289 /* usocket.c */,
+				17F0E7F32D468853001AD289 /* usocket.h */,
 			);
 			name = luasocket;
 			path = ../../luasocket;
@@ -254,6 +269,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17F0E8072D468853001AD289 /* socket.lua in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,30 +282,32 @@
 			files = (
 				84F8B8B51C45679700AE9B8F /* struct.c in Sources */,
 				49FCCBC32D436D4D00BB15D0 /* int64.c in Sources */,
-				84F8B8DC1C4567C100AE9B8F /* buffer.c in Sources */,
-				84F8B8E31C4567C100AE9B8F /* options.c in Sources */,
-				84F8B8E81C4567C100AE9B8F /* udp.c in Sources */,
-				84F8B8E91C4567C100AE9B8F /* unix.c in Sources */,
-				84F8B8E41C4567C100AE9B8F /* select.c in Sources */,
+				17F0E8092D468853001AD289 /* unixstream.c in Sources */,
+				17F0E7FE2D468853001AD289 /* timeout.c in Sources */,
+				17F0E8052D468853001AD289 /* serial.c in Sources */,
+				17F0E7FD2D468853001AD289 /* inet.c in Sources */,
+				17F0E8082D468853001AD289 /* except.c in Sources */,
+				17F0E7FB2D468853001AD289 /* luasocket.c in Sources */,
+				17F0E80A2D468853001AD289 /* io.c in Sources */,
+				17F0E7FA2D468853001AD289 /* options.c in Sources */,
 				49FCCBC52D436D7500BB15D0 /* bit.c in Sources */,
-				84F8B8DB1C4567C100AE9B8F /* auxiliar.c in Sources */,
+				17F0E8042D468853001AD289 /* buffer.c in Sources */,
 				49FCCBC12D436D4400BB15D0 /* uint64.c in Sources */,
 				84F8B8B71C45679C00AE9B8F /* lpeg.c in Sources */,
-				84F8B8E51C4567C100AE9B8F /* serial.c in Sources */,
+				17F0E7D32D468811001AD289 /* auxiliar.c in Sources */,
+				17F0E8062D468853001AD289 /* udp.c in Sources */,
 				84F8B8B11C45677A00AE9B8F /* pb.c in Sources */,
-				84F8B8E11C4567C100AE9B8F /* luasocket_scripts.c in Sources */,
+				17F0E8022D468853001AD289 /* unixdgram.c in Sources */,
 				84F8B8B31C45678E00AE9B8F /* tolua.c in Sources */,
-				84F8B8E21C4567C100AE9B8F /* mime.c in Sources */,
+				17F0E8032D468853001AD289 /* tcp.c in Sources */,
 				4928EF782D43887400125F44 /* lua_cjson.c in Sources */,
 				4928EF7B2D43887400125F44 /* fpconv.c in Sources */,
 				4928EF7C2D43887400125F44 /* strbuf.c in Sources */,
-				84F8B8DD1C4567C100AE9B8F /* except.c in Sources */,
-				84F8B8DF1C4567C100AE9B8F /* io.c in Sources */,
-				84F8B8E61C4567C100AE9B8F /* tcp.c in Sources */,
-				84F8B8EA1C4567C100AE9B8F /* usocket.c in Sources */,
-				84F8B8DE1C4567C100AE9B8F /* inet.c in Sources */,
-				84F8B8E71C4567C100AE9B8F /* timeout.c in Sources */,
-				84F8B8E01C4567C100AE9B8F /* luasocket.c in Sources */,
+				17F0E7FF2D468853001AD289 /* select.c in Sources */,
+				17F0E80C2D468853001AD289 /* usocket.c in Sources */,
+				17F0E80B2D468853001AD289 /* mime.c in Sources */,
+				17F0E7FC2D468853001AD289 /* compat.c in Sources */,
+				17F0E8002D468853001AD289 /* unix.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
