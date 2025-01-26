@@ -4,3 +4,6 @@
 [submodule "cjson"]
 	path = cjson
 	url = git@github.com:openresty/lua-cjson.git
+[submodule "luasocket"]
+	path = luasocket
+	url = git@github.com:lunarmodules/luasocket.git
