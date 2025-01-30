@@ -9,15 +9,15 @@ Motivation
 
 Build
 -----
-| Platforms    | Commands           | Notes               |
-| ------------ | ------------------ | ------------------- |
-| Windows(x86) | `build_win32.sh`   | mingw + luajit2.0.4 |
-| Windows(x64) | `build_win64.h`    | mingw + luajit2.0.4 |
-| Android(arm) | `build_arm.sh`     | mingw + luajit2.0.4 |
-| Android(x86) | `build_x86.sh`     | mingw + luajit2.0.4 |
-| macOS        | `build_osxjit.sh`  | Xcode + LuaJIT v2.1 |
-| iOS          | `build_ios.sh`     | Xcode + LuaJIT v2.1 |
-| Linux        | `build_ubuntu.sh`? |                     |
+|                    | Platforms    | Commands           | Notes               |
+| :----------------- | ------------ | ------------------ | ------------------- |
+|                    | Windows(x86) | `build_win32.sh`   | mingw + luajit2.0.4 |
+|                    | Windows(x64) | `build_win64.h`    | mingw + luajit2.0.4 |
+|                    | Android(arm) | `build_arm.sh`     | mingw + luajit2.0.4 |
+|                    | Android(x86) | `build_x86.sh`     | mingw + luajit2.0.4 |
+| :heavy_check_mark: | macOS        | `build_osxjit.sh`  | Xcode + LuaJIT v2.1 |
+| :heavy_check_mark: | iOS          | `build_ios.sh`     | Xcode + LuaJIT v2.1 |
+|                    | Linux        | `build_ubuntu.sh`? |                     |
 
 NDK 版本:android-ndk-r10e 默认安装到 D:/android-ndk-r10e<br>
 https://dl.google.com/android/repository/android-ndk-r10e-windows-x86_64.zip<br>
@@ -36,7 +36,7 @@ LuaJIT is updated to (current) latest v2.1 branch (commit at 2025-01-13 16:22:22
 | [luasocket][3]      | v3.1.0    | original v3.0-rc1             |
 | [protoc-gen-lua][4] |           |                               |
 | [struct][5]         | v1.8      | original v1.4                 |
-| [lpeg][6]           |           |                               |
+| [lpeg][6]           | v1.1.0    | original v0.10                |
 
 [1]: https://github.com/openresty/lua-cjson/tree/91ca29db9a4a4fd0eedaebcd5d5f3ba2ace5ae63
 [2]: https://github.com/mpx/lua-cjson
