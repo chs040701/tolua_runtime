@@ -1,0 +1,88 @@
+cmake_minimum_required(VERSION 3.21)
+
+cmake_policy(SET CMP0091 NEW)
+
+project(tolua LANGUAGES C)
+
+set(TOLUA_SRC
+    tolua.c
+    int64.c
+    uint64.c
+)
+source_group(tolua FILES ${TOLUA_SRC})
+
+set(LPEG_SRC
+    lpeg/lpcap.c
+    lpeg/lpcode.c
+    lpeg/lpcset.c
+    lpeg/lpprint.c
+    lpeg/lptree.c
+    lpeg/lpvm.c
+)
+source_group(liblpeg FILES ${LPEG_SRC})
+
+set(STRUCT_SRC
+    struct.c
+)
+source_group(libstruct FILES ${STRUCT_SRC})
+
+set(CJSON_SRC
+    cjson/strbuf.c
+    cjson/lua_cjson.c
+    cjson/fpconv.c
+)
+source_group(libcjson FILES ${CJSON_SRC})
+
+set(PROTOBUF_SRC
+    pb.c
+)
+source_group(libprotobuf FILES ${PROTOBUF_SRC})
+
+set(LUASOCKET_SRC
+    luasocket/src/auxiliar.c
+    luasocket/src/buffer.c
+    luasocket/src/compat.c
+    luasocket/src/except.c
+    luasocket/src/inet.c
+    luasocket/src/io.c
+    luasocket/src/luasocket.c
+    luasocket/src/options.c
+    luasocket/src/select.c
+    luasocket/src/tcp.c
+    luasocket/src/timeout.c
+    luasocket/src/udp.c
+)
+if (WIN32 AND NOT CYGWIN)
+    list(APPEND LUASOCKET_SRC luasocket/src/wsocket.c)
+else()
+    list(APPEND LUASOCKET_SRC luasocket/src/usocket.c)
+endif()
+source_group(libluasocket FILES ${LUASOCKET_SRC})
+
+if (WIN32 AND NOT CYGWIN)
+    add_library(tolua SHARED
+        ${TOLUA_SRC}
+        ${LPEG_SRC}
+        ${STRUCT_SRC}
+        ${CJSON_SRC}
+        ${LUASOCKET_SRC}
+    )
+    target_link_libraries(tolua PRIVATE ws2_32)
+    target_link_options(tolua PRIVATE "/NODEFAULTLIB:LIBCMT")
+    set_property(TARGET tolua PROPERTY
+        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+    )
+endif ()
+
+# Depends on LuaJIT
+include(${CMAKE_SOURCE_DIR}/cmake/luajit2.cmake)
+
+add_library(luajit2 STATIC IMPORTED)
+set_target_properties(luajit2 PROPERTIES 
+    IMPORTED_LOCATION ${LUAJIT_LIB_PATH}
+)
+add_dependencies(luajit2 luajit2_build)
+
+# Link LuaJIT
+target_link_libraries(tolua PRIVATE luajit2)
+target_include_directories(tolua PRIVATE ${LUAJIT_SOURCE_ROOT})
