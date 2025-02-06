@@ -1,8 +1,20 @@
+# Created by https://www.toptal.com/developers/gitignore/api/c,cmake,macos
+# Edit at https://www.toptal.com/developers/gitignore?templates=c,cmake,macos
+
+### C ###
+# Prerequisites
+*.d
+
 # Object files
 *.o
 *.ko
 *.obj
 *.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
 
 # Precompiled Headers
 *.gch
@@ -30,9 +42,37 @@
 
 # Debug files
 *.dSYM/
+*.su
+*.idb
+*.pdb
 
-# Created by https://www.toptal.com/developers/gitignore/api/macos,xcode
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,xcode
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+### CMake ###
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+### CMake Patch ###
+CMakeUserPresets.json
+
+# External projects
+*-prefix/
 
 ### macOS ###
 # General
@@ -67,21 +107,4 @@ Temporary Items
 # iCloud generated files
 *.icloud
 
-### Xcode ###
-## User settings
-xcuserdata/
-
-## Xcode 8 and earlier
-*.xcscmblueprint
-*.xccheckout
-
-### Xcode Patch ###
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcodeproj/project.xcworkspace/
-!*.xcworkspace/contents.xcworkspacedata
-/*.gcno
-**/xcshareddata/WorkspaceSettings.xcsettings
-
-# End of https://www.toptal.com/developers/gitignore/api/macos,xcode
+# End of https://www.toptal.com/developers/gitignore/api/c,cmake,macos
