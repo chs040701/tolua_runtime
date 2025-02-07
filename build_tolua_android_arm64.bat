@@ -1,6 +1,8 @@
 @rem Script to build tolua for Android arm64.
 @rem Copyright (C) 2025 Rython Fu.
 
+@setlocal enabledelayedexpansion
+
 @set ANDROID_ABI=arm64-v8a
 @set ANDROID_NATIVE_API_LEVEL=21
 

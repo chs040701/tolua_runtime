@@ -57,15 +57,18 @@ elseif (ANDROID)
         set(NDK_STRIP ${NDK_BIN_DIR}/llvm-strip)
     endif ()
 
+    # https://stackoverflow.com/questions/70594767/cmake-appends-backslash-to-command-added-by-add-custom-target
+    set(NDK_DYNAMIC_CC ${NDK_CC} "-fPIC")
+    set(NDK_TARGET_AR ${NDK_AR} "rcus")
     add_custom_command(
         OUTPUT ${LUAJIT_LIB_PATH}
         COMMAND make TARGET_SYS=Linux clean
         COMMAND make
             CROSS=${NDK_CROSS}
             STATIC_CC=${NDK_CC}
-            DYNAMIC_CC="${NDK_CC} -fPIC"
+            DYNAMIC_CC="${NDK_DYNAMIC_CC}"
             TARGET_LD=${NDK_CC}
-            TARGET_AR="${NDK_AR} rcus"
+            TARGET_AR="${NDK_TARGET_AR}"
             TARGET_STRIP=${NDK_STRIP}
             TARGET_SYS=Linux
         COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.so ${LUAJIT_LIB_PATH}

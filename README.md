@@ -43,6 +43,11 @@ and execute `winget install ezwinports.make` to install `cmake`, according to th
 > set ANDROID_NDK_HOME=/path/to/android-ndk-r27c && .\build_tolua_android_arm64.bat
 ```
 
+#### Cross-compiling on macOS and Linux
+```bash
+$ export ANDROID_NDK_HOME=/path/to/android-ndk-r27c && ./build_tolua_android_arm64.sh
+```
+
 ### Legacy
 NDK 版本:android-ndk-r10e 默认安装到 D:/android-ndk-r10e<br>
 https://dl.google.com/android/repository/android-ndk-r10e-windows-x86_64.zip<br>
