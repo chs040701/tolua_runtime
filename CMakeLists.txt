@@ -68,11 +68,9 @@ if (WIN32 AND NOT CYGWIN)
         ${LUASOCKET_SRC}
     )
     target_link_libraries(tolua PRIVATE ws2_32)
-    target_link_options(tolua PRIVATE "/NODEFAULTLIB:LIBCMT")
-    set_property(TARGET tolua PROPERTY
-        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
-    )
+    set_property(TARGET tolua PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif ()
+set_property(TARGET tolua PROPERTY C_STANDARD 99)
 
 # Depends on LuaJIT
 include(${CMAKE_SOURCE_DIR}/cmake/luajit2.cmake)

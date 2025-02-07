@@ -9,16 +9,32 @@ Motivation
 
 Build
 -----
+CMake is used to build `tolua` and cross-compiling, and CMake 3.21 or above is required.
+
 |                    | Platforms    | Commands           | Notes               |
 | :----------------- | ------------ | ------------------ | ------------------- |
-|                    | Windows(x86) | `build_win32.sh`   | mingw + luajit2.0.4 |
-|                    | Windows(x64) | `build_win64.sh`   | mingw + luajit2.0.4 |
+| :heavy_check_mark: | Windows(x86) | `cmake -G "Visual Studio 17 2022" -A Win32 -B "..\tolua_runtime_x86"` | CMake + LuaJIT v2.1 |
+| :heavy_check_mark: | Windows(x64) | `cmake -G "Visual Studio 17 2022" -A x64 -B "..\tolua_runtime_x64"` | mingw + luajit2.0.4 |
+|                    | Windows(arm64) |  |  |
 |                    | Android(arm) | `build_arm.sh`     | mingw + luajit2.0.4 |
 |                    | Android(x86) | `build_x86.sh`     | mingw + luajit2.0.4 |
 | :heavy_check_mark: | macOS        | `build_osxjit.sh`  | Xcode + LuaJIT v2.1 |
 | :heavy_check_mark: | iOS          | `build_ios.sh`     | Xcode + LuaJIT v2.1 |
 |                    | Linux        | `build_ubuntu.sh`? |                     |
 
+### Windows
+When targeting Windows, MSVC is preferred ~~over MinGW or CYGWIN~~.
+
+```powershell
+# generate using Visual Studio (2017 or above should work)
+cmake -G "Visual Studio 17 2022" -A x64 -B ".\libtolua_windows_x64" # for x64
+cmake -G "Visual Studio 17 2022" -A Win32 -B ".\libtolua_windows_x86" # for x86
+
+# build tolua runtime as a static library
+cmake --build ".\libtolua_windows_x64" --config Release
+```
+
+### Legacy
 NDK 版本:android-ndk-r10e 默认安装到 D:/android-ndk-r10e<br>
 https://dl.google.com/android/repository/android-ndk-r10e-windows-x86_64.zip<br>
 Msys2配置说明<br>
