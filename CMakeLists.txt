@@ -59,13 +59,17 @@ else()
 endif()
 source_group(libluasocket FILES ${LUASOCKET_SRC})
 
+set(LIB_SRC 
+    ${LPEG_SRC}
+    ${STRUCT_SRC}
+    ${CJSON_SRC}
+    ${LUASOCKET_SRC}
+)
+
 if (WIN32 AND NOT CYGWIN)
     add_library(tolua SHARED
         ${TOLUA_SRC}
-        ${LPEG_SRC}
-        ${STRUCT_SRC}
-        ${CJSON_SRC}
-        ${LUASOCKET_SRC}
+        ${LIB_SRC}
     )
     target_link_libraries(tolua PRIVATE ws2_32)
     set_property(TARGET tolua PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
@@ -76,10 +80,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 else ()
     add_library(tolua SHARED
         ${TOLUA_SRC}
-        ${LPEG_SRC}
-        ${STRUCT_SRC}
-        ${CJSON_SRC}
-        ${LUASOCKET_SRC}
+        ${LIB_SRC}
     )
 endif ()
 set_property(TARGET tolua PROPERTY C_STANDARD 99)

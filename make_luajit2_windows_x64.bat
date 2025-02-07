@@ -4,7 +4,6 @@
 @rem Use the following options, if needed. The default is a static release build.
 @rem
 @rem   debug             whether emit debug symbols
-@rem   <install_path>    the path to install the built binaries
 
 @setlocal enabledelayedexpansion
 
@@ -14,16 +13,18 @@
 :NODEBUG
 @set MSVCBUILD_ARGS=static
 
-call find_latest_vs.bat
+@rem Store Visual Studio installation path in `VS_PATH`.
+call find_latest_vs.bat > vs_path.txt
 @if errorlevel 1 goto :BAD
+for /f "delims=" %%i in (vs_path.txt) do set VS_PATH=%%i
+@echo Visual Studio: %VS_PATH%
 
-@set VS_PATH=%VS_PATH%
 @set LUAJIT_SOURCE_DIR=%~dp0\luajit-2.1\src
-
 call "%VS_PATH%\VC\Auxiliary\Build\vcvarsall.bat" x64 && (
     cd /d "%LUAJIT_SOURCE_DIR%"
     call msvcbuild.bat %MSVCBUILD_ARGS%
 )
+goto :END
 
 :BAD
 @echo.
@@ -31,3 +32,4 @@ call "%VS_PATH%\VC\Auxiliary\Build\vcvarsall.bat" x64 && (
 @echo *** FAILED -- Please check the error messages ***
 @echo *************************************************
 :END
+del %~dp0\vs_path.txt

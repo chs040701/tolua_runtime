@@ -35,11 +35,10 @@ pass `-DANDROID_NDK=/path/to/android-ndk-r27c` to CMake command.
 #### Cross-compiling on Windows
 `make` and `gcc` are required. 
 
-Using `scoop` or other package managers to install `gcc`, e.g., `scoop install gcc`,
-and execute `winget install ezwinports.make` to install `cmake`, according to this 
-[answer](https://stackoverflow.com/a/73862277).
-
+Using [Scoop](https://scoop.sh/) or other package managers to install `gcc` and `make`.
 ```cmd
+> scoop install make
+> scoop install gcc
 > set ANDROID_NDK_HOME=/path/to/android-ndk-r27c && .\build_tolua_android_arm64.bat
 ```
 

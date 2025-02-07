@@ -1,7 +1,7 @@
 @rem Script to find latest installed visual studio using vswhere.
 @rem Copyright (C) 2025 Rython Fu.
 
-@setlocal
+@setlocal enabledelayedexpansion
 
 @set VSWHERE_PATH=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe
 @if not exist "%VSWHERE_PATH%" goto :NOVSWHERE
@@ -20,7 +20,7 @@
 @goto :BAD
 
 :FOUND
-@echo Found Visual Studio: %VS_PATH%
+@echo %VS_PATH%
 @goto :END
 
 :BAD
