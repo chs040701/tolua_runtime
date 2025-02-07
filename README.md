@@ -2,36 +2,45 @@ ToLua Runtime
 =============
 Maintained ToLua runtime for Unity games using ToLua.
 
+
 Motivation
 ----------
 - Mainly to update outdated libraries.
 - Upgrade build script or toolchains for each platforms.
 
+
 Build
 -----
 CMake is used to build `tolua` and cross-compiling, and CMake 3.21 or above is required.
 
-|                    | Platforms    | Commands           | Notes               |
-| :----------------- | ------------ | ------------------ | ------------------- |
-| :heavy_check_mark: | Windows(x86) | `cmake -G "Visual Studio 17 2022" -A Win32 -B "..\tolua_runtime_x86"` | CMake + LuaJIT v2.1 |
-| :heavy_check_mark: | Windows(x64) | `cmake -G "Visual Studio 17 2022" -A x64 -B "..\tolua_runtime_x64"` | mingw + luajit2.0.4 |
-|                    | Windows(arm64) |  |  |
-|                    | Android(arm) | `build_arm.sh`     | mingw + luajit2.0.4 |
-|                    | Android(x86) | `build_x86.sh`     | mingw + luajit2.0.4 |
-| :heavy_check_mark: | macOS        | `build_osxjit.sh`  | Xcode + LuaJIT v2.1 |
-| :heavy_check_mark: | iOS          | `build_ios.sh`     | Xcode + LuaJIT v2.1 |
-|                    | Linux        | `build_ubuntu.sh`? |                     |
-
-### Windows
+### Windows (x86, x64)
 When targeting Windows, MSVC is preferred ~~over MinGW or CYGWIN~~.
 
 ```powershell
 # generate using Visual Studio (2017 or above should work)
-cmake -G "Visual Studio 17 2022" -A x64 -B ".\libtolua_windows_x64" # for x64
-cmake -G "Visual Studio 17 2022" -A Win32 -B ".\libtolua_windows_x86" # for x86
+cmake -G "Visual Studio 17 2022" -A x64 -B ".\build\windows\x64" # for x64
+cmake -G "Visual Studio 17 2022" -A Win32 -B ".\build\windows\x86" # for x86
 
 # build tolua runtime as a static library
-cmake --build ".\libtolua_windows_x64" --config Release
+cmake --build ".\build\windows\x64" --config Release
+```
+
+### Android (arm64)
+To build for Android, you need to install the Android NDK and Ninja.
+
+Set environment variable `ANDROID_NDK_HOME` to the path of the NDK,
+e.g. `export ANDROID_NDK_HOME=/path/to/android-ndk-r27c` on UNIX-like systems, or
+pass `-DANDROID_NDK=/path/to/android-ndk-r27c` to CMake command.
+
+#### Cross-compiling on Windows
+`make` and `gcc` are required. 
+
+Using `scoop` or other package managers to install `gcc`, e.g., `scoop install gcc`,
+and execute `winget install ezwinports.make` to install `cmake`, according to this 
+[answer](https://stackoverflow.com/a/73862277).
+
+```cmd
+> set ANDROID_NDK_HOME=/path/to/android-ndk-r27c && .\build_tolua_android_arm64.bat
 ```
 
 ### Legacy
@@ -41,6 +50,7 @@ Msys2配置说明<br>
 https://github.com/topameng/tolua_runtime/wiki<br>
 配置好的Msys2下载<br>
 https://pan.baidu.com/s/1c2JzvDQ<br>
+
 
 Libraries
 ---------

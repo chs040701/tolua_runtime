@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.14)
 
 cmake_policy(SET CMP0091 NEW)
 
@@ -69,6 +69,18 @@ if (WIN32 AND NOT CYGWIN)
     )
     target_link_libraries(tolua PRIVATE ws2_32)
     set_property(TARGET tolua PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+elseif (IOS)
+
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+
+else ()
+    add_library(tolua SHARED
+        ${TOLUA_SRC}
+        ${LPEG_SRC}
+        ${STRUCT_SRC}
+        ${CJSON_SRC}
+        ${LUASOCKET_SRC}
+    )
 endif ()
 set_property(TARGET tolua PROPERTY C_STANDARD 99)
 
