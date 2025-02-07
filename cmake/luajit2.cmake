@@ -16,7 +16,8 @@ if (WIN32 AND NOT CYGWIN)
         endif ()
         add_custom_command(
             OUTPUT ${LUAJIT_LIB_PATH}
-            COMMAND ${LUAJIT_BUILD_SCRIPT_PATH} $<$<CONFIG:Debug>:debug> ${LUAJIT_INSTALL_ROOT}
+            COMMAND ${LUAJIT_BUILD_SCRIPT_PATH} $<$<CONFIG:Debug>:debug>
+            COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/lua51.lib ${LUAJIT_LIB_PATH}
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             COMMENT "Building LuaJIT for Windows (${CMAKE_GENERATOR_PLATFORM})..."
         )

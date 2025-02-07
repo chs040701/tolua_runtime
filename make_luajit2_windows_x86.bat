@@ -25,10 +25,6 @@ call "%VS_PATH%\VC\Auxiliary\Build\vcvarsall.bat" x86 && (
     call msvcbuild.bat %MSVCBUILD_ARGS%
 )
 
-@rem Copy the built binaries to the install directory
-@copy "%LUAJIT_SOURCE_DIR%\lua51.lib" "%1\lua51.lib"
-@goto :END
-
 :BAD
 @echo.
 @echo *************************************************
