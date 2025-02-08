@@ -4,6 +4,10 @@ cmake_policy(SET CMP0091 NEW)
 
 project(tolua LANGUAGES C)
 
+# Options
+option(LJ_GC64 "LuaJIT: Use 64 bit GC objects" ON)
+
+# Sources
 set(TOLUA_SRC
     tolua.c
     int64.c
@@ -66,6 +70,7 @@ set(LIB_SRC
     ${LUASOCKET_SRC}
 )
 
+# toLua Library
 if (WIN32 AND NOT CYGWIN)
     add_library(tolua SHARED
         ${TOLUA_SRC}
@@ -76,7 +81,11 @@ if (WIN32 AND NOT CYGWIN)
 elseif (IOS)
 
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-
+    add_library(tolua MODULE
+        ${TOLUA_SRC}
+        ${LIB_SRC}
+    )
+    set_property(TARGET tolua PROPERTY BUNDLE TRUE)
 else ()
     add_library(tolua SHARED
         ${TOLUA_SRC}

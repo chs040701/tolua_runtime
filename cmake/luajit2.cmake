@@ -3,7 +3,7 @@ set(LUAJIT_INSTALL_ROOT ${CMAKE_BINARY_DIR}/lj2)
 
 if (WIN32 AND NOT CYGWIN)
     set(LUAJIT_LIB_PATH ${LUAJIT_INSTALL_ROOT}/lua51.lib)
-elseif (IOS)
+elseif (APPLE)
     set(LUAJIT_LIB_PATH ${LUAJIT_INSTALL_ROOT}/libluajit.a)
 else ()
     set(LUAJIT_LIB_PATH ${LUAJIT_INSTALL_ROOT}/libluajit.so)
@@ -83,6 +83,15 @@ elseif (ANDROID)
         COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.so ${LUAJIT_LIB_PATH}
         WORKING_DIRECTORY ${LUAJIT_SOURCE_ROOT}
         COMMENT "Building LuaJIT for Android (${ANDROID_ABI})"
+    )
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    add_custom_command(
+        OUTPUT ${LUAJIT_LIB_PATH}
+        COMMAND ${CMAKE_COMMAND} -E env MACOSX_DEPLOYMENT_TARGET=${DEPLOYMENT_TARGET} 
+                ${CMAKE_SOURCE_DIR}/make_luajit2_osx_universal.sh
+        COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        COMMENT "Building LuaJIT for macOS (${ARCHS})"
     )
 else ()
 

@@ -11,9 +11,9 @@ Motivation
 
 Build
 -----
-CMake is used to build `tolua` and cross-compiling, and CMake 3.21 or above is required.
+CMake 3.14+ is required to build `tolua` and cross-compiling.
 
-### Windows (x86, x64)
+### Windows (x86, x86_64)
 When targeting Windows, MSVC is preferred ~~over MinGW or CYGWIN~~.
 
 ```powershell
@@ -45,6 +45,13 @@ Using [Scoop](https://scoop.sh/) or other package managers to install `gcc` and 
 #### Cross-compiling on macOS and Linux
 ```bash
 $ export ANDROID_NDK_HOME=/path/to/android-ndk-r27c && ./build_tolua_android_arm64.sh
+```
+
+### macOS (universal)
+Xcode is needed for macOS.
+
+```bash
+$ ./build_tolua_osx_universal.sh
 ```
 
 ### Legacy
