@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-# NOTE: this script is used by CMake to build a universal macOS binary.
-# It in the end will puts the result into the current directory, named *libluajit.a*.
-#
-# If you want to execute it, be sure to run it from the luajit source directory.
-# 
 # Options: "-g" for generating debug information
 
 if [ -z "$MACOSX_DEPLOYMENT_TARGET" ]; then

@@ -88,7 +88,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     add_custom_command(
         OUTPUT ${LUAJIT_LIB_PATH}
         COMMAND ${CMAKE_COMMAND} -E env MACOSX_DEPLOYMENT_TARGET=${DEPLOYMENT_TARGET} 
-                ${CMAKE_SOURCE_DIR}/make_luajit2_osx_universal.sh
+                ${CMAKE_SOURCE_DIR}/make_luajit2_osx_universal.sh $<$<CONFIG:Debug>:-g>
         COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         COMMENT "Building LuaJIT for macOS (${ARCHS})"
