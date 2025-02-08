@@ -79,7 +79,11 @@ if (WIN32 AND NOT CYGWIN)
     target_link_libraries(tolua PRIVATE ws2_32)
     set_property(TARGET tolua PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 elseif (IOS)
-
+    add_library(tolua STATIC
+        ${TOLUA_SRC}
+        ${LIB_SRC}
+    )
+    target_link_options(tolua PRIVATE -ObjC)
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     add_library(tolua MODULE
         ${TOLUA_SRC}

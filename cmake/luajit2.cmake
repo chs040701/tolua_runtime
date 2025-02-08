@@ -15,6 +15,8 @@ if (WIN32 AND NOT CYGWIN)
             set(LUAJIT_BUILD_SCRIPT_PATH ${CMAKE_SOURCE_DIR}/make_luajit2_windows_x86.bat)
         elseif (CMAKE_GENERATOR_PLATFORM STREQUAL "x64")
             set(LUAJIT_BUILD_SCRIPT_PATH ${CMAKE_SOURCE_DIR}/make_luajit2_windows_x64.bat)
+        else ()
+            message(FATAL_ERROR "Only x64 and Win32 are supported.")
         endif ()
         add_custom_command(
             OUTPUT ${LUAJIT_LIB_PATH}
@@ -85,16 +87,32 @@ elseif (ANDROID)
         COMMENT "Building LuaJIT for Android (${ANDROID_ABI})"
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    if (CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64;arm64")
+        set(LUAJIT_BUILD_SCRIPT_PATH ${CMAKE_SOURCE_DIR}/make_luajit2_osx_universal.sh)
+    else ()
+        message(FATAL_ERROR "Only universal (x86_64;arm64) is supported.")
+    endif ()
     add_custom_command(
         OUTPUT ${LUAJIT_LIB_PATH}
         COMMAND ${CMAKE_COMMAND} -E env MACOSX_DEPLOYMENT_TARGET=${DEPLOYMENT_TARGET} 
-                ${CMAKE_SOURCE_DIR}/make_luajit2_osx_universal.sh $<$<CONFIG:Debug>:-g>
+                ${LUAJIT_BUILD_SCRIPT_PATH} $<$<CONFIG:Debug>:--debug>
         COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        COMMENT "Building LuaJIT for macOS (${ARCHS})"
+        COMMENT "Building LuaJIT for macOS (${CMAKE_OSX_ARCHITECTURES})"
     )
-else ()
-
+elseif (IOS)
+    if (CMAKE_OSX_ARCHITECTURES STREQUAL "arm64")
+        set(LUAJIT_BUILD_SCRIPT_PATH ${CMAKE_SOURCE_DIR}/make_luajit2_ios_arm64.sh)
+    else ()
+        message(FATAL_ERROR "Only arm64 is supported.")
+    endif ()
+    add_custom_command(
+        OUTPUT ${LUAJIT_LIB_PATH}
+        COMMAND ${LUAJIT_BUILD_SCRIPT_PATH} $<$<CONFIG:Debug>:--debug> --ios-deployment-target ${DEPLOYMENT_TARGET}
+        COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        COMMENT "Building LuaJIT for iOS (${CMAKE_OSX_ARCHITECTURES})"
+    )
 endif ()
 
 add_custom_target(luajit2_build DEPENDS ${LUAJIT_LIB_PATH})
