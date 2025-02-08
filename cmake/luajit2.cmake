@@ -108,7 +108,7 @@ elseif (IOS)
     endif ()
     add_custom_command(
         OUTPUT ${LUAJIT_LIB_PATH}
-        COMMAND ${LUAJIT_BUILD_SCRIPT_PATH} $<$<CONFIG:Debug>:--debug> --ios-deployment-target ${DEPLOYMENT_TARGET}
+        COMMAND /bin/sh -c "env -i ${LUAJIT_BUILD_SCRIPT_PATH} $<$<CONFIG:Debug>:--debug> --ios-deployment-target ${DEPLOYMENT_TARGET}"
         COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         COMMENT "Building LuaJIT for iOS (${CMAKE_OSX_ARCHITECTURES})"
