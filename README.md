@@ -16,13 +16,11 @@ CMake 3.14+ is required to build `tolua` and cross-compiling.
 ### Windows (x86, x86_64)
 When targeting Windows, MSVC is preferred ~~over MinGW or CYGWIN~~.
 
-```powershell
-# generate using Visual Studio (2017 or above should work)
-cmake -G "Visual Studio 17 2022" -A x64 -B ".\build\windows\x64" # for x64
-cmake -G "Visual Studio 17 2022" -A Win32 -B ".\build\windows\x86" # for x86
+Visual Studio 2017+ should work (Tested for Visual Studio 2022)
 
-# build tolua runtime as a static library
-cmake --build ".\build\windows\x64" --config Release
+```bat
+> .\build_tolua_windows_x86.bat
+> .\build_tolua_windows_x64.bat
 ```
 
 ### Android (arm64)
@@ -36,7 +34,7 @@ pass `-DANDROID_NDK=/path/to/android-ndk-r27c` to CMake command.
 `make` and `gcc` are required. 
 
 Using [Scoop](https://scoop.sh/) or other package managers to install `gcc` and `make`.
-```cmd
+```bat
 > scoop install make
 > scoop install gcc
 > set ANDROID_NDK_HOME=/path/to/android-ndk-r27c && .\build_tolua_android_arm64.bat
