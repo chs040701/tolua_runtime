@@ -14,9 +14,11 @@
 @set MSVCBUILD_ARGS=static
 
 @rem Store Visual Studio installation path in `VS_PATH`.
-call find_latest_vs.bat > vs_path.txt
+@set TMPFILE_VS_PATH=%TMP%\vs~%RANDOM%.txt
+@echo Save Visual Studio installation path to %TMPFILE_VS_PATH%
+call find_latest_vs.bat > %TMPFILE_VS_PATH%
 @if errorlevel 1 goto :BAD
-for /f "delims=" %%i in (vs_path.txt) do set VS_PATH=%%i
+for /f "delims=" %%i in (%TMPFILE_VS_PATH%) do set VS_PATH=%%i
 @echo Visual Studio: %VS_PATH%
 
 @set LUAJIT_SOURCE_DIR=%~dp0\luajit-2.1\src
@@ -32,4 +34,4 @@ goto :END
 @echo *** FAILED -- Please check the error messages ***
 @echo *************************************************
 :END
-del %~dp0\vs_path.txt
+@del %TMPFILE_VS_PATH%
