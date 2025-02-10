@@ -13,6 +13,11 @@ Build
 -----
 CMake 3.14+ is required to build `tolua` and cross-compiling.
 
+> NOTE: Every predefiend build script would install the target library to *Plugins*
+> folder, which could be placed on any subfolder in *Assets*, according to the 
+> [disccusion](https://discussions.unity.com/t/plugins-folder-inside-a-unity-package-does-it-have-to-be-on-the-root-folder-or-not/934638/2)
+> for newer version of Unity.
+
 ### Windows (x86, x86_64)
 When targeting Windows, MSVC is preferred ~~over MinGW or CYGWIN~~.
 

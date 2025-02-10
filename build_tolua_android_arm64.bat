@@ -17,4 +17,4 @@
   --build ".\build\android\%ANDROID_ABI%" ^
   --config Release
 
-copy /y ".\build\android\%ANDROID_ABI%\libtolua.so" ".\Plugins\Android\libs\%ANDROID_ABI%"
+copy /y ".\build\android\%ANDROID_ABI%\libtolua.so" ".\Plugins\Android\%ANDROID_ABI%"
