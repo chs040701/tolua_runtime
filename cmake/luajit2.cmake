@@ -1,13 +1,13 @@
 set(LUAJIT_SOURCE_ROOT ${CMAKE_SOURCE_DIR}/luajit-2.1/src)
 set(LUAJIT_INSTALL_ROOT ${CMAKE_BINARY_DIR}/lj2)
-
 if (WIN32 AND NOT CYGWIN)
-    set(LUAJIT_LIB_PATH ${LUAJIT_INSTALL_ROOT}/lua51.lib)
+    set(LUAJIT_LIB_NAME lua51.lib)
 elseif (APPLE)
-    set(LUAJIT_LIB_PATH ${LUAJIT_INSTALL_ROOT}/libluajit.a)
+    set(LUAJIT_LIB_NAME libluajit.a)
 else ()
-    set(LUAJIT_LIB_PATH ${LUAJIT_INSTALL_ROOT}/libluajit.so)
+    set(LUAJIT_LIB_NAME libluajit.so)
 endif ()
+set(LUAJIT_LIB_PATH ${LUAJIT_INSTALL_ROOT}/${LUAJIT_LIB_NAME})
 
 if (WIN32 AND NOT CYGWIN)
     if (CMAKE_GENERATOR MATCHES "Visual Studio")

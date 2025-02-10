@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.24)
 
 cmake_policy(SET CMP0091 NEW)
 
@@ -77,7 +77,6 @@ if (WIN32 AND NOT CYGWIN)
         ${LIB_SRC}
     )
     target_link_libraries(tolua PRIVATE ws2_32)
-    set_property(TARGET tolua PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 elseif (IOS)
     add_library(tolua STATIC
         ${TOLUA_SRC}
@@ -107,6 +106,12 @@ set_target_properties(luajit2 PROPERTIES
 )
 add_dependencies(luajit2 luajit2_build)
 
+# Compile options
+if (MSVC)
+    set_property(TARGET tolua PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+    target_compile_definitions(tolua PRIVATE LUA_BUILD_AS_DLL LUA_LIB)
+endif ()
+
 # Link LuaJIT
-target_link_libraries(tolua PRIVATE luajit2)
+target_link_libraries(tolua PRIVATE "$<LINK_LIBRARY:WHOLE_ARCHIVE,luajit2>")
 target_include_directories(tolua PRIVATE ${LUAJIT_SOURCE_ROOT})
