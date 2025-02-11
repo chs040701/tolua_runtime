@@ -21,11 +21,34 @@ CMake 3.14+ is required to build `tolua` and cross-compiling.
 ### Windows (x86, x86_64)
 When targeting Windows, MSVC is preferred ~~over MinGW or CYGWIN~~.
 
+#### MSVC
 Visual Studio 2017+ should work (Tested for Visual Studio 2022)
 
 ```bat
 > .\build_tolua_windows_x86.bat
 > .\build_tolua_windows_x64.bat
+```
+
+#### MinGW (MSYS2)
+Prepare MSYS2 environment.
+```bash
+$ pacman -S git
+```
+
+For 32-bit, run:
+```bash
+$ pacman -S mingw-w64-i686-cmake
+$ pacman -S mingw-w64-i686-gcc
+$ pacman -S mingw-w64-i686-make
+$ ./build_tolua_windows_x86.sh
+```
+
+For 64-bit, run:
+```bash
+$ pacman -S mingw-w64-x86_64-cmake
+$ pacman -S mingw-w64-x86_64-gcc
+$ pacman -S mingw-w64-x86_64-make
+$ ./build_tolua_windows_x64.sh
 ```
 
 ### Android (arm64)

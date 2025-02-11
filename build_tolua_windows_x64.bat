@@ -8,6 +8,7 @@
 @set CMAKE_ARCH=x64
 
 @cmake ^
+  --fresh ^
   -G %GENERATOR% ^
   -A %CMAKE_ARCH% ^
   -B ".\build\windows\%ARCH%"

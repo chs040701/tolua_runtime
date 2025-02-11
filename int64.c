@@ -31,6 +31,8 @@ SOFTWARE.
 #include <ctype.h>
 #include <limits.h>
 
+#define LUA_LIB
+
 #include "lua.h"
 #include "lualib.h"
 #include "lauxlib.h"

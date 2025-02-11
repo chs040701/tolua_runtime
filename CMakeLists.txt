@@ -69,6 +69,7 @@ set(LIB_SRC
     ${CJSON_SRC}
     ${LUASOCKET_SRC}
 )
+set_property(SOURCE ${LIB_SRC} PROPERTY COMPILE_DEFINITIONS LUA_LIB)
 
 # toLua Library
 if (WIN32 AND NOT CYGWIN)
@@ -109,9 +110,14 @@ add_dependencies(luajit2 luajit2_build)
 # Compile options
 if (MSVC)
     set_property(TARGET tolua PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-    target_compile_definitions(tolua PRIVATE LUA_BUILD_AS_DLL LUA_LIB)
+endif ()
+if (WIN32 AND NOT CYGWIN)
+    target_compile_definitions(tolua PRIVATE LUA_BUILD_AS_DLL)
 endif ()
 
 # Link LuaJIT
 target_link_libraries(tolua PRIVATE "$<LINK_LIBRARY:WHOLE_ARCHIVE,luajit2>")
+if (MINGW)
+    target_link_options(tolua PRIVATE -static-libgcc)
+endif ()
 target_include_directories(tolua PRIVATE ${LUAJIT_SOURCE_ROOT})

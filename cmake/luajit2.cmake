@@ -25,6 +25,23 @@ if (WIN32 AND NOT CYGWIN)
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             COMMENT "Building LuaJIT for Windows (${CMAKE_GENERATOR_PLATFORM})..."
         )
+    elseif (MINGW)
+        if (CMAKE_SIZEOF_VOID_P EQUAL 8)
+            set(MINGW_ENVIRONMENT "x86_64")
+        else ()
+            set(MINGW_ENVIRONMENT "i686")
+        endif ()
+        add_custom_command(
+            OUTPUT ${LUAJIT_LIB_PATH}
+            COMMAND mingw32-make clean
+            COMMAND mingw32-make 
+                $<$<EQUAL:${CMAKE_SIZEOF_VOID_P},4>:CC="gcc -m32">
+                BUILDMODE=static
+                CCDEBUG="$<$<CONFIG:Debug>: -g>"
+            COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
+            WORKING_DIRECTORY ${LUAJIT_SOURCE_ROOT}
+            COMMENT "Building LuaJIT for Windows (${MINGW_ENVIRONMENT}) on mingw-w64..."
+        )
     endif ()
 elseif (ANDROID)
     # https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html#cross-compiling-for-android
