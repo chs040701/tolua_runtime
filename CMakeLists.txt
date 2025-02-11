@@ -107,7 +107,7 @@ set_target_properties(luajit2 PROPERTIES
 )
 add_dependencies(luajit2 luajit2_build)
 
-# Compile options
+# Target options
 if (MSVC)
     set_property(TARGET tolua PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif ()
@@ -117,4 +117,7 @@ endif ()
 
 # Link LuaJIT
 target_link_libraries(tolua PRIVATE "$<LINK_LIBRARY:WHOLE_ARCHIVE,luajit2>")
+if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
+    target_link_options(tolua PRIVATE -Wl,--export-all-symbols)
+endif ()
 target_include_directories(tolua PRIVATE ${LUAJIT_SOURCE_ROOT})

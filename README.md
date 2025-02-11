@@ -30,25 +30,23 @@ Visual Studio 2017+ should work (Tested for Visual Studio 2022)
 ```
 
 #### MinGW (MSYS2)
-Prepare MSYS2 environment.
+Install MSYS2 and prepare MSYS2 environment and toolchains.
+
 ```bash
 $ pacman -S git
-```
-
-For 32-bit, run:
-```bash
+$ # For 32-bit
 $ pacman -S mingw-w64-i686-cmake
 $ pacman -S mingw-w64-i686-gcc
 $ pacman -S mingw-w64-i686-make
-$ ./build_tolua_windows_x86.sh
-```
-
-For 64-bit, run:
-```bash
+$ # For 64-bit
 $ pacman -S mingw-w64-x86_64-cmake
 $ pacman -S mingw-w64-x86_64-gcc
 $ pacman -S mingw-w64-x86_64-make
-$ ./build_tolua_windows_x64.sh
+```
+
+To build, symply run:
+```bash
+$ ./build_tolua_windows_mingw.sh
 ```
 
 ### Android (arm64)
