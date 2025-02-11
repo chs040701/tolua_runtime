@@ -12,11 +12,8 @@ if (WIN32)
     set(LUAJIT_LIB_BASE_NAME "lua51")
     set(LUAJIT_LIB_SUFFIX ".lib")
     endif()
-elseif (APPLE)
-    set(LUAJIT_LIB_SUFFIX ".a")
-    set(LUAJIT_LIB_PREFIX "lib")
 else ()
-    set(LUAJIT_LIB_SUFFIX ".so")
+    set(LUAJIT_LIB_SUFFIX ".a")
     set(LUAJIT_LIB_PREFIX "lib")
 endif()
 set(LUAJIT_LIB_NAME "${LUAJIT_LIB_PREFIX}${LUAJIT_LIB_BASE_NAME}${LUAJIT_LIB_SUFFIX}")
@@ -76,22 +73,20 @@ elseif (ANDROID)
 
     # https://stackoverflow.com/a/47896799/3614952
     set(MAKE_SHELL_CMD 0)
-    if (CMAKE_HOST_WIN32)
-        set(NDK_BIN_DIR ${ANDROID_NDK}\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin)
-        set(NDK_CROSS ${NDK_BIN_DIR}\\aarch64-linux-android-)
-        set(NDK_CC ${NDK_BIN_DIR}\\aarch64-linux-android${ANDROID_PLATFORM}-clang.cmd)
-        set(NDK_AR ${NDK_BIN_DIR}\\llvm-ar.exe)
-        set(NDK_STRIP ${NDK_BIN_DIR}\\llvm-strip.exe)
-        if (NOT MINGW AND NOT CYGWIN)
-            set(MAKE_SHELL_CMD 1)
-        endif ()
-    elseif (CMAKE_HOST_UNIX)
+    if (CMAKE_HOST_UNIX OR $ENV{MSYSTEM} STREQUAL "MINGW64")
         string(TOLOWER ${CMAKE_HOST_SYSTEM_NAME} HOST_SYSTEM_NAME_LOWER)
         set(NDK_BIN_DIR ${ANDROID_NDK}/toolchains/llvm/prebuilt/${HOST_SYSTEM_NAME_LOWER}-x86_64/bin)
         set(NDK_CROSS ${NDK_BIN_DIR}/aarch64-linux-android-)
         set(NDK_CC ${NDK_BIN_DIR}/aarch64-linux-android${ANDROID_PLATFORM}-clang)
         set(NDK_AR ${NDK_BIN_DIR}/llvm-ar)
         set(NDK_STRIP ${NDK_BIN_DIR}/llvm-strip)
+    elseif (CMAKE_HOST_WIN32)
+        set(NDK_BIN_DIR ${ANDROID_NDK}\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin)
+        set(NDK_CROSS ${NDK_BIN_DIR}\\aarch64-linux-android-)
+        set(NDK_CC ${NDK_BIN_DIR}\\aarch64-linux-android${ANDROID_PLATFORM}-clang.cmd)
+        set(NDK_AR ${NDK_BIN_DIR}\\llvm-ar.exe)
+        set(NDK_STRIP ${NDK_BIN_DIR}\\llvm-strip.exe)
+        set(MAKE_SHELL_CMD 1)
     endif ()
 
     # https://stackoverflow.com/questions/70594767/cmake-appends-backslash-to-command-added-by-add-custom-target
@@ -112,7 +107,7 @@ elseif (ANDROID)
             TARGET_AR="${NDK_TARGET_AR}"
             TARGET_STRIP=${NDK_STRIP}
             TARGET_SYS=Linux
-        COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.so ${LUAJIT_LIB_PATH}
+        COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
         WORKING_DIRECTORY ${LUAJIT_SOURCE_ROOT}
         COMMENT "Building LuaJIT for Android (${ANDROID_ABI})"
     )
