@@ -66,7 +66,9 @@ Using [Scoop](https://scoop.sh/) or other package managers to install `gcc` and 
 > set ANDROID_NDK_HOME=/path/to/android-ndk-r27c && .\build_tolua_android_arm64.bat
 ```
 
-#### Cross-compiling on macOS and Linux
+For MinGW, it is the same as build on UNIX-like system as below.
+
+#### Cross-compiling on UNIX-like
 ```bash
 $ export ANDROID_NDK_HOME=/path/to/android-ndk-r27c && ./build_tolua_android_arm64.sh
 ```
