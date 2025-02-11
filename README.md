@@ -20,7 +20,6 @@ CMake 3.14+ is required to build `tolua` and cross-compiling.
 | Android (arm64)   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 | macOS (universal) | :x:                | :heavy_check_mark: | :x:                |
 | iOS (arm64)       | :x:                | :heavy_check_mark: | :x:                |
-|                   |                    |                    |                    |
 
 > NOTE: Every predefiend build script would install the target library to *Plugins*
 > folder, which could be placed on any subfolder in *Assets*, according to the 

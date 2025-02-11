@@ -5,16 +5,23 @@
 
 @set ANDROID_ABI=arm64-v8a
 @set ANDROID_NATIVE_API_LEVEL=21
+@set CONFIG=Release
+@set BUILD_DIR=.\build\android\%ANDROID_ABI%
+@set INSTALL_DIR=.\Plugins\Android\%ANDROID_ABI%
 
 @cmake ^
-  -B ".\build\android\%ANDROID_ABI%" ^
+  -B "%BUILD_DIR%" ^
   -G Ninja ^
   -DCMAKE_TOOLCHAIN_FILE="%ANDROID_NDK_HOME%\build\cmake\android.toolchain.cmake" ^
+  -DCMAKE_BUILD_TYPE=%CONFIG% ^
   -DANDROID_ABI="%ANDROID_ABI%" ^
   -DANDROID_PLATFORM="%ANDROID_NATIVE_API_LEVEL%"
 
 @cmake ^
-  --build ".\build\android\%ANDROID_ABI%" ^
-  --config Release
+  --build "%BUILD_DIR%" ^
+  --config %CONFIG%
 
-copy /y ".\build\android\%ANDROID_ABI%\libtolua.so" ".\Plugins\Android\%ANDROID_ABI%"
+@if not exist "%INSTALL_DIR%" (
+  @md "%INSTALL_DIR%"
+)
+copy /y "%BUILD_DIR%\libtolua.so" "%INSTALL_DIR%"

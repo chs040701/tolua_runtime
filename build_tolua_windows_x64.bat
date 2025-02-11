@@ -6,15 +6,17 @@
 @set GENERATOR="Visual Studio 17 2022"
 @set ARCH=x86_64
 @set CMAKE_ARCH=x64
+@set CONFIG=Release
 
 @cmake ^
   --fresh ^
   -G %GENERATOR% ^
   -A %CMAKE_ARCH% ^
-  -B ".\build\windows\%ARCH%"
+  -B ".\build\windows\%ARCH%" ^
+  -DCMAKE_BUILD_TYPE=%CONFIG%
 
 @cmake ^
   --build ".\build\windows\%ARCH%" ^
-  --config Release
+  --config %CONFIG%
 
-copy /y ".\build\windows\%ARCH%\Release\tolua.dll" ".\Plugins\Windows\%ARCH%"
+copy /y ".\build\windows\%ARCH%\%CONFIG%\tolua.dll" ".\Plugins\Windows\%ARCH%"
