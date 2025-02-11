@@ -117,7 +117,4 @@ endif ()
 
 # Link LuaJIT
 target_link_libraries(tolua PRIVATE "$<LINK_LIBRARY:WHOLE_ARCHIVE,luajit2>")
-if (MINGW)
-    target_link_options(tolua PRIVATE -static-libgcc)
-endif ()
 target_include_directories(tolua PRIVATE ${LUAJIT_SOURCE_ROOT})
