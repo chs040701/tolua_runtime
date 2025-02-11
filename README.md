@@ -13,15 +13,24 @@ Build
 -----
 CMake 3.14+ is required to build `tolua` and cross-compiling.
 
+|                   | Windows            | macOS              | Linux              |
+| ----------------- | ------------------ | ------------------ | ------------------ |
+| Windows (x86)     | :heavy_check_mark: | :x:                | :x:                |
+| Windows (x64)     | :heavy_check_mark: | :x:                | :x:                |
+| Android (arm64)   | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+| macOS (universal) | :x:                | :heavy_check_mark: | :x:                |
+| iOS (arm64)       | :x:                | :heavy_check_mark: | :x:                |
+|                   |                    |                    |                    |
+
 > NOTE: Every predefiend build script would install the target library to *Plugins*
 > folder, which could be placed on any subfolder in *Assets*, according to the 
 > [disccusion](https://discussions.unity.com/t/plugins-folder-inside-a-unity-package-does-it-have-to-be-on-the-root-folder-or-not/934638/2)
 > for newer version of Unity.
 
 ### Windows (x86, x86_64)
-When targeting Windows, MSVC is preferred ~~over MinGW or CYGWIN~~.
+When targeting Windows, ~~MSVC is preferred over MinGW or CYGWIN~~.
 
-#### MSVC
+#### MSVC (WIP)
 Visual Studio 2017+ should work (Tested for Visual Studio 2022)
 
 ```bat
@@ -29,7 +38,10 @@ Visual Studio 2017+ should work (Tested for Visual Studio 2022)
 > .\build_tolua_windows_x64.bat
 ```
 
-#### MinGW (MSYS2)
+> IMPORTANT: Symbols from LuaJIT is stuck for exporting to shared library now.
+> Refer to [#1341](https://github.com/LuaJIT/LuaJIT/issues/1341) for any progress.
+
+#### MinGW (using MSYS2)
 Install MSYS2 and prepare MSYS2 environment and toolchains.
 
 ```bash
@@ -78,6 +90,13 @@ Xcode is needed for macOS.
 
 ```bash
 $ ./build_tolua_osx_universal.sh
+```
+
+### iOS (arm64)
+Xcode is needed for macOS.
+
+```bash
+$ ./build_tolua_ios_arm64.sh
 ```
 
 ### Legacy
