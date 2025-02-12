@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-export ANDROID_ABI=arm64-v8a
-export ANDROID_NATIVE_API_LEVEL=21
-export CONFIG=Release
-export BUILD_DIR="./build/android/${ANDROID_ABI}"
-export INSTALL_DIR="./Plugins/Android/${ANDROID_ABI}"
+ANDROID_ABI=arm64-v8a
+ANDROID_NATIVE_API_LEVEL=21
+CONFIG=Release
+BUILD_DIR="./build/android/${ANDROID_ABI}"
+INSTALL_DIR="./Plugins/Android/${ANDROID_ABI}"
 
 cmake \
   -B "${BUILD_DIR}" \

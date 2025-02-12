@@ -11,14 +11,17 @@ fi
 
 SCRIPT_DIR="$(dirname "$0")"
 BUILD_DIR="${SCRIPT_DIR}/build/windows/${ARCH}-mingw"
+INSTALL_DIR="${SCRIPT_DIR}/Plugins/Windows/${ARCH}"
+CONFIG=Release
 
 cmake \
   -B "${BUILD_DIR}" \
   -G Ninja \
-  -DCMAKE_BUILD_TYPE=Release
+  -DCMAKE_BUILD_TYPE=$CONFIG
 
 cmake \
   --build "${BUILD_DIR}" \
-  --config Release
+  --config $CONFIG
 
-cp -f "${BUILD_DIR}/libtolua.dll" "./Plugins/Windows/${ARCH}/tolua.dll"
+mkdir -p "$INSTALL_DIR"
+cp -f "${BUILD_DIR}/libtolua.dll" "${INSTALL_DIR}/tolua.dll"
