@@ -19,6 +19,15 @@ endif()
 set(LUAJIT_LIB_NAME "${LUAJIT_LIB_PREFIX}${LUAJIT_LIB_BASE_NAME}${LUAJIT_LIB_SUFFIX}")
 set(LUAJIT_LIB_PATH ${LUAJIT_INSTALL_ROOT}/${LUAJIT_LIB_NAME})
 
+# Setup LuaJIT compile flags `XCFLAGS` according to options
+set(LUAJIT_XCFLAGS )
+if (NOT LJ_GC64)
+    list(APPEND LUAJIT_XCFLAGS " -DLUAJIT_DISABLE_GC64")
+endif ()
+if (LJ_ENABLE_LUA52COMPAT)
+    list(APPEND LUAJIT_XCFLAGS " -DLUAJIT_ENABLE_LUA52COMPAT")
+endif ()
+
 if (WIN32 AND NOT CYGWIN)
     if (CMAKE_GENERATOR MATCHES "Visual Studio")
         if (CMAKE_GENERATOR_PLATFORM STREQUAL "Win32")
@@ -36,21 +45,20 @@ if (WIN32 AND NOT CYGWIN)
             COMMENT "Building LuaJIT for Windows (${CMAKE_GENERATOR_PLATFORM})..."
         )
     elseif (MINGW)
-        if (CMAKE_SIZEOF_VOID_P EQUAL 8)
-            set(MINGW_ENVIRONMENT "x86_64")
-        else ()
-            set(MINGW_ENVIRONMENT "i686")
+        if ($ENV{MSYSTEM} STREQUAL "MINGW32")
+            set(MINGW32 TRUE)
         endif ()
         add_custom_command(
             OUTPUT ${LUAJIT_LIB_PATH}
             COMMAND mingw32-make clean
             COMMAND mingw32-make 
                 $<$<EQUAL:${CMAKE_SIZEOF_VOID_P},4>:CC="gcc -m32">
-                BUILDMODE=static
                 CCDEBUG="$<$<CONFIG:Debug>: -g>"
+                XCFLAGS="${LUAJIT_XCFLAGS}"
+                BUILDMODE=static
             COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
             WORKING_DIRECTORY ${LUAJIT_SOURCE_ROOT}
-            COMMENT "Building LuaJIT for Windows (${MINGW_ENVIRONMENT}) on mingw-w64..."
+            COMMENT "Building LuaJIT for Windows ($<IF:$<BOOL:${MINGW32}>,x86,x86_64>) on $ENV{MSYSTEM}..."
         )
     endif ()
 elseif (ANDROID)
@@ -104,6 +112,8 @@ elseif (ANDROID)
             CROSS=${NDK_CROSS}
             STATIC_CC=${NDK_CC}
             DYNAMIC_CC="${NDK_DYNAMIC_CC}"
+            CCDEBUG="$<$<CONFIG:Debug>: -g>"
+            XCFLAGS="${LUAJIT_XCFLAGS}"
             TARGET_LD=${NDK_CC}
             TARGET_AR="${NDK_TARGET_AR}"
             TARGET_STRIP=${NDK_STRIP}
@@ -120,7 +130,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     endif ()
     add_custom_command(
         OUTPUT ${LUAJIT_LIB_PATH}
-        COMMAND ${CMAKE_COMMAND} -E env MACOSX_DEPLOYMENT_TARGET=${DEPLOYMENT_TARGET} 
+        COMMAND ${CMAKE_COMMAND} -E env MACOSX_DEPLOYMENT_TARGET=${DEPLOYMENT_TARGET} LUAJIT_XCFLAGS="${LUAJIT_XCFLAGS}"
                 ${LUAJIT_BUILD_SCRIPT_PATH} $<$<CONFIG:Debug>:--debug>
         COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
@@ -134,7 +144,7 @@ elseif (IOS)
     endif ()
     add_custom_command(
         OUTPUT ${LUAJIT_LIB_PATH}
-        COMMAND /bin/sh -c "env -i ${LUAJIT_BUILD_SCRIPT_PATH} $<$<CONFIG:Debug>:--debug> --ios-deployment-target ${DEPLOYMENT_TARGET}"
+        COMMAND /bin/sh -c "env -i LUAJIT_XCFLAGS='${LUAJIT_XCFLAGS}' ${LUAJIT_BUILD_SCRIPT_PATH} $<$<CONFIG:Debug>:--debug> --ios-deployment-target ${DEPLOYMENT_TARGET}"
         COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         COMMENT "Building LuaJIT for iOS (${CMAKE_OSX_ARCHITECTURES})"

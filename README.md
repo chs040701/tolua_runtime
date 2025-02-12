@@ -27,7 +27,7 @@ CMake 3.14+ is required to build `tolua` and cross-compiling.
 > for newer version of Unity.
 
 ### Windows (x86, x86_64)
-When targeting Windows, ~~MSVC is preferred over MinGW or CYGWIN~~.
+When targeting Windows, MINGW is preferred over MSVC (luajit options not supported).
 
 #### MSVC (WIP)
 Visual Studio 2017+ should work (Tested for Visual Studio 2022)

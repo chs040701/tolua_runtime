@@ -6,6 +6,7 @@ project(tolua LANGUAGES C)
 
 # Options
 option(LJ_GC64 "LuaJIT: Use 64 bit GC objects" ON)
+option(LJ_ENABLE_LUA52COMPAT "LuaJIT: Enable Lua 5.2 compatibility" OFF)
 
 # Sources
 set(TOLUA_SRC
