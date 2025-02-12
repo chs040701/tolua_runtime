@@ -109,7 +109,8 @@ https://pan.baidu.com/s/1c2JzvDQ<br>
 
 Libraries
 ---------
-LuaJIT is updated to (current) latest v2.1 branch (commit at 2025-01-13 16:22:22)
+LuaJIT is updated to (current) latest v2.1 branch (commit at 2025-01-13 16:22:22),
+but currently using a [forked repository](https://github.com/alex4814/luajit).
 
 |                              | Version   | Notes                         |
 | ---------------------------- | --------- | ----------------------------- |
