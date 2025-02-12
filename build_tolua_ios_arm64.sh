@@ -3,7 +3,7 @@
 SCRIPT_DIR="$(dirname "$0")"
 ARCH=arm64
 CONFIG=Release
-BUILD_DIR="${SCRIPT_DIR}/build/ios/${ARCH}"
+BUILD_DIR="${SCRIPT_DIR}/Build/ios/${ARCH}"
 INSTALL_DIR="./Plugins/iOS/${ARCH}"
 
 cmake \

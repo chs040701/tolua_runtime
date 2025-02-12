@@ -6,7 +6,7 @@
 @set ANDROID_ABI=arm64-v8a
 @set ANDROID_NATIVE_API_LEVEL=21
 @set CONFIG=Release
-@set BUILD_DIR=.\build\android\%ANDROID_ABI%
+@set BUILD_DIR=.\Build\android\%ANDROID_ABI%
 @set INSTALL_DIR=.\Plugins\Android\%ANDROID_ABI%
 
 @cmake ^

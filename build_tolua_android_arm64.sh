@@ -3,7 +3,7 @@
 ANDROID_ABI=arm64-v8a
 ANDROID_NATIVE_API_LEVEL=21
 CONFIG=Release
-BUILD_DIR="./build/android/${ANDROID_ABI}"
+BUILD_DIR="./Build/android/${ANDROID_ABI}"
 INSTALL_DIR="./Plugins/Android/${ANDROID_ABI}"
 
 cmake \

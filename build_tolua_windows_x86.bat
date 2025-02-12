@@ -7,16 +7,17 @@
 @set ARCH=x86
 @set CMAKE_ARCH=Win32
 @set CONFIG=Release
+@set BUILD_DIR=.\Build\windows\%ARCH%
+@set INSTALL_DIR=.\Plugins\Windows\%ARCH%
 
 @cmake ^
-  --fresh ^
   -G %GENERATOR% ^
   -A %CMAKE_ARCH% ^
-  -B ".\build\windows\%ARCH%" ^
+  -B "%BUILD_DIR%" ^
   -DCMAKE_BUILD_TYPE=%CONFIG%
 
 @cmake ^
-  --build ".\build\windows\%ARCH%" ^
+  --build "%BUILD_DIR%" ^
   --config %CONFIG%
 
-copy /y ".\build\windows\%ARCH%\%CONFIG%\tolua.dll" ".\Plugins\Windows\%ARCH%"
+copy /y "%BUILD_DIR%\%CONFIG%\tolua.dll" "%INSTALL_DIR%"

@@ -10,7 +10,7 @@ else
 fi
 
 SCRIPT_DIR="$(dirname "$0")"
-BUILD_DIR="${SCRIPT_DIR}/build/windows/${ARCH}-mingw"
+BUILD_DIR="${SCRIPT_DIR}/Build/windows/${ARCH}-mingw"
 INSTALL_DIR="${SCRIPT_DIR}/Plugins/Windows/${ARCH}"
 CONFIG=Release
 

@@ -3,7 +3,7 @@
 SCRIPT_DIR="$(dirname "$0")"
 ARCH=universal
 CONFIG=Release
-BUILD_DIR="${SCRIPT_DIR}/build/osx/${ARCH}"
+BUILD_DIR="${SCRIPT_DIR}/Build/osx/${ARCH}"
 INSTALL_DIR="${SCRIPT_DIR}/Plugins/macOS/${ARCH}"
 
 cmake \
