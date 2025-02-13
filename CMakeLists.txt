@@ -117,8 +117,13 @@ if (WIN32 AND NOT CYGWIN)
 endif ()
 
 # Link LuaJIT
+target_include_directories(tolua PRIVATE ${LUAJIT_SOURCE_ROOT})
 target_link_libraries(tolua PRIVATE "$<LINK_LIBRARY:WHOLE_ARCHIVE,luajit2>")
 if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
     target_link_options(tolua PRIVATE -Wl,--export-all-symbols)
 endif ()
-target_include_directories(tolua PRIVATE ${LUAJIT_SOURCE_ROOT})
+if (IOS)
+    add_custom_command(TARGET tolua POST_BUILD
+        COMMAND /usr/bin/libtool -static -o $<TARGET_FILE:tolua> $<TARGET_FILE:tolua> $<TARGET_FILE:luajit2>
+    )
+endif ()
