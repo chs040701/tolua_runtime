@@ -32,6 +32,7 @@ make -C $LUAJIT_SOURCE_DIR \
 make -C $LUAJIT_SOURCE_DIR \
   DEFAULT_CC=clang \
   CCDEBUG="$cc_debug" \
+  XCFLAGS="$LUAJIT_XCFLAGS" \
   CROSS="$(dirname $ICC)/" \
   TARGET_FLAGS="$ISDKF" \
   TARGET_SYS=iOS

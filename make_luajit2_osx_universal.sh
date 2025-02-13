@@ -29,13 +29,13 @@ TMP_DIR=$(mktemp -d)
 # Apple Silicon - Arm64
 ISDKF="-arch arm64"
 make -C $LUAJIT_SOURCE_DIR clean
-make -C $LUAJIT_SOURCE_DIR HOST_CC=clang TARGET_FLAGS="$ISDKF" CCDEBUG="$cc_debug"
+make -C $LUAJIT_SOURCE_DIR HOST_CC=clang TARGET_FLAGS="$ISDKF" CCDEBUG="$cc_debug" XCFLAGS="$LUAJIT_XCFLAGS"
 cp -i $LUAJIT_SOURCE_DIR/libluajit.a $TMP_DIR/libluajit-arm64.a
 
 # Intel - x86_64
 ISDKF="-arch x86_64 -masm=intel"
 make -C $LUAJIT_SOURCE_DIR clean
-make -C $LUAJIT_SOURCE_DIR HOST_CC=clang TARGET_FLAGS="$ISDKF" CCDEBUG="$cc_debug"
+make -C $LUAJIT_SOURCE_DIR HOST_CC=clang TARGET_FLAGS="$ISDKF" CCDEBUG="$cc_debug" XCFLAGS="$LUAJIT_XCFLAGS"
 cp -i $LUAJIT_SOURCE_DIR/libluajit.a $TMP_DIR/libluajit-x86_64.a
 
 # Create universal binary

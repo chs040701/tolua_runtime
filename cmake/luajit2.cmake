@@ -22,13 +22,14 @@ set(LUAJIT_LIB_PATH ${LUAJIT_INSTALL_ROOT}/${LUAJIT_LIB_NAME})
 # Setup LuaJIT compile flags `XCFLAGS` according to options
 set(LUAJIT_XCFLAGS )
 if (NOT LJ_GC64)
-    list(APPEND LUAJIT_XCFLAGS " -DLUAJIT_DISABLE_GC64")
+    set(LUAJIT_XCFLAGS "${LUAJIT_XCFLAGS} -DLUAJIT_DISABLE_GC64")
 endif ()
 if (LJ_ENABLE_LUA52COMPAT)
-    list(APPEND LUAJIT_XCFLAGS " -DLUAJIT_ENABLE_LUA52COMPAT")
+    set(LUAJIT_XCFLAGS "${LUAJIT_XCFLAGS} -DLUAJIT_ENABLE_LUA52COMPAT")
 endif ()
 
 if (WIN32 AND NOT CYGWIN)
+    # XCFLAGS are not supported now
     if (CMAKE_GENERATOR MATCHES "Visual Studio")
         if (CMAKE_GENERATOR_PLATFORM STREQUAL "Win32")
             set(LUAJIT_BUILD_SCRIPT_PATH ${CMAKE_SOURCE_DIR}/make_luajit2_windows_x86.bat)
@@ -54,7 +55,7 @@ if (WIN32 AND NOT CYGWIN)
             COMMAND mingw32-make 
                 $<$<EQUAL:${CMAKE_SIZEOF_VOID_P},4>:CC="gcc -m32">
                 CCDEBUG="$<$<CONFIG:Debug>: -g>"
-                XCFLAGS="${LUAJIT_XCFLAGS}"
+                XCFLAGS=${LUAJIT_XCFLAGS}
                 BUILDMODE=static
             COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
             WORKING_DIRECTORY ${LUAJIT_SOURCE_ROOT}
@@ -113,7 +114,7 @@ elseif (ANDROID)
             STATIC_CC=${NDK_CC}
             DYNAMIC_CC="${NDK_DYNAMIC_CC}"
             CCDEBUG="$<$<CONFIG:Debug>: -g>"
-            XCFLAGS="${LUAJIT_XCFLAGS}"
+            XCFLAGS=${LUAJIT_XCFLAGS}
             TARGET_LD=${NDK_CC}
             TARGET_AR="${NDK_TARGET_AR}"
             TARGET_STRIP=${NDK_STRIP}
@@ -130,7 +131,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     endif ()
     add_custom_command(
         OUTPUT ${LUAJIT_LIB_PATH}
-        COMMAND ${CMAKE_COMMAND} -E env MACOSX_DEPLOYMENT_TARGET=${DEPLOYMENT_TARGET} LUAJIT_XCFLAGS="${LUAJIT_XCFLAGS}"
+        COMMAND ${CMAKE_COMMAND} -E env MACOSX_DEPLOYMENT_TARGET=${DEPLOYMENT_TARGET} LUAJIT_XCFLAGS=${LUAJIT_XCFLAGS}
                 ${LUAJIT_BUILD_SCRIPT_PATH} $<$<CONFIG:Debug>:--debug>
         COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
