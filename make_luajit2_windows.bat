@@ -5,19 +5,15 @@
 @rem 
 @rem Use the following options, if needed. The default is a static release build.
 @rem
-@rem   debug             whether emit debug symbols
+@rem   nogc64   disable LJ_GC64 mode for x64
+@rem   debug    whether emit debug symbols
 
 @setlocal enabledelayedexpansion
 
 @set ARCH=%~1
 @shift
 
-@set MSVCBUILD_ARGS=static
-
-@if "%1" neq "debug" goto :NODEBUG
-@set MSVCBUILD_ARGS=debug %MSVCBUILD_ARGS%
-@shift
-:NODEBUG
+@set MSVCBUILD_ARGS=%* static
 
 @rem Store Visual Studio installation path in `VS_PATH`.
 @set TMPFILE_VS_PATH=%TMP%\vs~%RANDOM%.txt

@@ -13,8 +13,7 @@
 @cmake ^
   -G %GENERATOR% ^
   -A %CMAKE_ARCH% ^
-  -B "%BUILD_DIR%" ^
-  -DCMAKE_BUILD_TYPE=%CONFIG%
+  -B "%BUILD_DIR%"
 
 @cmake ^
   --build "%BUILD_DIR%" ^

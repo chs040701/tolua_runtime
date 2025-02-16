@@ -29,18 +29,18 @@ if (LJ_ENABLE_LUA52COMPAT)
 endif ()
 
 if (WIN32 AND NOT CYGWIN)
-    # XCFLAGS are not supported now
+    # LuaJIT compiler options (other than LUAJIT_DISABLE_GC64) using Makefile are not supported.
     if (CMAKE_GENERATOR MATCHES "Visual Studio")
         if (CMAKE_GENERATOR_PLATFORM STREQUAL "Win32")
             set(LUAJIT_BUILD_SCRIPT_PATH ${CMAKE_SOURCE_DIR}/make_luajit2_windows_x86.bat)
         elseif (CMAKE_GENERATOR_PLATFORM STREQUAL "x64")
             set(LUAJIT_BUILD_SCRIPT_PATH ${CMAKE_SOURCE_DIR}/make_luajit2_windows_x64.bat)
         else ()
-            message(FATAL_ERROR "Only x64 and Win32 are supported.")
+            message(FATAL_ERROR "Platforms supported for Visual Studio generator: x64, Win32. Provided: ${CMAKE_GENERATOR_PLATFORM}")
         endif ()
         add_custom_command(
             OUTPUT ${LUAJIT_LIB_PATH}
-            COMMAND ${LUAJIT_BUILD_SCRIPT_PATH} $<$<CONFIG:Debug>:debug>
+            COMMAND cmd /C ${LUAJIT_BUILD_SCRIPT_PATH} $<$<NOT:$<BOOL:${LJ_GC64}>>:nogc64> $<$<CONFIG:Debug>:debug>
             COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/lua51.lib ${LUAJIT_LIB_PATH}
             WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
             COMMENT "Building LuaJIT for Windows (${CMAKE_GENERATOR_PLATFORM})..."
