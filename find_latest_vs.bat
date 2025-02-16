@@ -8,7 +8,7 @@
 
 @for /f "usebackq tokens=*" %%i in (`"%VSWHERE_PATH%" -latest -property installationPath`) do (
     @set VS_PATH=%%i
-    goto :FOUND
+    @goto :FOUND
 )
 
 :NOVSWHERE
