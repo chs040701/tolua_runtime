@@ -19,4 +19,5 @@
   --build "%BUILD_DIR%" ^
   --config %CONFIG%
 
+@md "%INSTALL_DIR%"
 copy /y "%BUILD_DIR%\%CONFIG%\tolua.dll" "%INSTALL_DIR%"

@@ -13,7 +13,7 @@
 @set ARCH=%~1
 @shift
 
-@set MSVCBUILD_ARGS=%* static
+@set MSVCBUILD_ARGS=%1 %2 static
 
 @rem Store Visual Studio installation path in `VS_PATH`.
 @set TMPFILE_VS_PATH=%TMP%\vs~%RANDOM%.txt
@@ -21,7 +21,7 @@
 @if errorlevel 1 goto :BAD
 @for /f "delims=" %%i in (%TMPFILE_VS_PATH%) do @set VS_PATH=%%i
 
-@set LUAJIT_SOURCE_DIR=%~dp0\luajit-2.1\src
+@set LUAJIT_SOURCE_DIR=%~dp0luajit-2.1\src
 call "%VS_PATH%\VC\Auxiliary\Build\vcvarsall.bat" %ARCH% && (
     cd /d "%LUAJIT_SOURCE_DIR%"
     call msvcbuild.bat %MSVCBUILD_ARGS%
