@@ -46,20 +46,25 @@ if (WIN32 AND NOT CYGWIN)
             message(FATAL_ERROR "Platforms supported: ${SUPPORTED_GENERATOR_PLATFORMS}. Provided: ${CMAKE_GENERATOR_PLATFORM}")
         endif ()
     elseif (MINGW)
-        if ($ENV{MSYSTEM} STREQUAL "MINGW32")
-            set(MINGW32 TRUE)
+        set(MSYSTEMS MINGW32 MINGW64)
+        set(TARGET_ARCHS x86 x86_64)
+        list(FIND MSYSTEMS "$ENV{MSYSTEM}" MSYSTEM_INDEX)
+        if (MSYSTEM_INDEX EQUAL -1)
+            message(FATAL_ERROR "MSYS environment supported: ${MSYSTEMS}. Current: $ENV{MSYSTEM}")
         endif ()
+
+        list(GET TARGET_ARCHS ${MSYSTEM_INDEX} TARGET_ARCH)
         add_custom_command(
             OUTPUT ${LUAJIT_LIB_PATH}
-            COMMAND mingw32-make clean
-            COMMAND mingw32-make 
+            COMMAND make clean
+            COMMAND make 
                 $<$<EQUAL:${CMAKE_SIZEOF_VOID_P},4>:CC="gcc -m32">
                 CCDEBUG="$<$<CONFIG:Debug>: -g>"
                 XCFLAGS=${LUAJIT_XCFLAGS}
                 BUILDMODE=static
             COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
             WORKING_DIRECTORY ${LUAJIT_SOURCE_ROOT}
-            COMMENT "Building LuaJIT for Windows ($<IF:$<BOOL:${MINGW32}>,x86,x86_64>) on $ENV{MSYSTEM}..."
+            COMMENT "Building LuaJIT for Windows (${TARGET_ARCH}) on $ENV{MSYSTEM}..."
         )
     endif ()
 elseif (ANDROID)
