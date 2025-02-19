@@ -87,7 +87,9 @@ elseif (ANDROID)
 
     # https://stackoverflow.com/a/47896799/3614952
     set(MAKE_SHELL_CMD 0)
-    set(MINGW64 $ENV{MSYSTEM} STREQUAL "MINGW64")
+    if ("$ENV{MSYSTEM}" STREQUAL "MINGW64")
+        set(MINGW64 1)
+    endif ()
     if (CMAKE_HOST_UNIX OR MINGW64)
         string(TOLOWER ${CMAKE_HOST_SYSTEM_NAME} HOST_SYSTEM_NAME_LOWER)
         set(NDK_BIN_DIR ${ANDROID_NDK}/toolchains/llvm/prebuilt/${HOST_SYSTEM_NAME_LOWER}-x86_64/bin)
@@ -95,6 +97,7 @@ elseif (ANDROID)
         set(NDK_CC ${NDK_BIN_DIR}/aarch64-linux-android${ANDROID_PLATFORM}-clang)
         set(NDK_AR ${NDK_BIN_DIR}/llvm-ar)
         set(NDK_STRIP ${NDK_BIN_DIR}/llvm-strip)
+        set(MAKE_EXE make)
     elseif (CMAKE_HOST_WIN32)
         set(NDK_BIN_DIR ${ANDROID_NDK}\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin)
         set(NDK_CROSS ${NDK_BIN_DIR}\\aarch64-linux-android-)
@@ -102,6 +105,7 @@ elseif (ANDROID)
         set(NDK_AR ${NDK_BIN_DIR}\\llvm-ar.exe)
         set(NDK_STRIP ${NDK_BIN_DIR}\\llvm-strip.exe)
         set(MAKE_SHELL_CMD 1)
+        set(MAKE_EXE ${ANDROID_NDK}\\prebuilt\\windows-x86_64\\bin\\make.exe)
     endif ()
 
     # https://stackoverflow.com/questions/70594767/cmake-appends-backslash-to-command-added-by-add-custom-target
@@ -109,11 +113,11 @@ elseif (ANDROID)
     set(NDK_TARGET_AR ${NDK_AR} "rcus")
     add_custom_command(
         OUTPUT ${LUAJIT_LIB_PATH}
-        COMMAND make 
+        COMMAND ${MAKE_EXE} 
             $<${MAKE_SHELL_CMD}:SHELL=cmd>
             TARGET_SYS=Linux
             clean
-        COMMAND make 
+        COMMAND ${MAKE_EXE} 
             $<${MAKE_SHELL_CMD}:SHELL=cmd>
             CROSS=${NDK_CROSS}
             STATIC_CC=${NDK_CC}

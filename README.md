@@ -13,14 +13,14 @@ Build
 -----
 CMake 3.14+ is required to build `tolua` and cross-compiling.
 
-|                   | Windows (MSYS2)    | Windows (MSVC)     | macOS              | Linux              |
-| ----------------- | ------------------ | ------------------ | ------------------ | ------------------ |
-| Windows (x86)     | :heavy_check_mark: | :heavy_check_mark: | :x:                | :x:                |
-| Windows (x64)     | :heavy_check_mark: | :heavy_check_mark: | :x:                | :x:                |
-| Windows (arm64)   | :x:                | :heavy_check_mark: | :x:                | :x:                |
-| Android (arm64)   | :heavy_check_mark: | :x:                | :heavy_check_mark: | :heavy_check_mark: |
-| macOS (universal) | :x:                | :x:                | :heavy_check_mark: | :x:                |
-| iOS (arm64)       | :x:                | :x:                | :heavy_check_mark: | :x:                |
+|                   | Windows (MSYS2)    | Windows                   | macOS              | Linux              |
+| ----------------- | ------------------ | ------------------------- | ------------------ | ------------------ |
+| Windows (x86)     | :heavy_check_mark: | :heavy_check_mark: (msvc) | :x:                | :x:                |
+| Windows (x64)     | :heavy_check_mark: | :heavy_check_mark: (msvc) | :x:                | :x:                |
+| Windows (arm64)   | :x:                | :heavy_check_mark: (msvc) | :x:                | :x:                |
+| Android (arm64)   | :heavy_check_mark: | :heavy_check_mark: (gcc)  | :heavy_check_mark: | :heavy_check_mark: |
+| macOS (universal) | :x:                | :x:                       | :heavy_check_mark: | :x:                |
+| iOS (arm64)       | :x:                | :x:                       | :heavy_check_mark: | :x:                |
 
 > NOTE: Every predefiend build script would install the target library to *Plugins*
 > folder, which could be placed on any subfolder in *Assets*, according to the 
@@ -69,8 +69,12 @@ e.g. `export ANDROID_NDK_HOME=/path/to/android-ndk-r27c` on UNIX-like systems, o
 pass `-DANDROID_NDK=/path/to/android-ndk-r27c` to CMake command.
 
 #### Cross-compiling on Windows
-MinGW is required and it is the same as building on UNIX-like system as below.
+Using [Scoop](https://scoop.sh/) or other package managers to install `gcc`.
+```bat
+> set ANDROID_NDK_HOME=C:\path\to\android-ndk-r27c && .\build_tolua_android_arm64.bat
+```
 
+For MinGW, it is the same as build on UNIX-like system.
 ```bash
 $ ANDROID_NDK_HOME=C:/path/to/android-ndk-r27c ./build_tolua_android_arm64.sh
 ```
