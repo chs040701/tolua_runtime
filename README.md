@@ -18,6 +18,7 @@ CMake 3.14+ is required to build `tolua` and cross-compiling.
 | Windows (x86)     | :heavy_check_mark: | :heavy_check_mark: (msvc) | :x:                | :x:                |
 | Windows (x64)     | :heavy_check_mark: | :heavy_check_mark: (msvc) | :x:                | :x:                |
 | Windows (arm64)   | :x:                | :heavy_check_mark: (msvc) | :x:                | :x:                |
+| Android (arm)     | :heavy_check_mark: | :x:                       | :x:                | :x:                |
 | Android (arm64)   | :heavy_check_mark: | :heavy_check_mark: (gcc)  | :heavy_check_mark: | :heavy_check_mark: |
 | macOS (universal) | :x:                | :x:                       | :heavy_check_mark: | :x:                |
 | iOS (arm64)       | :x:                | :x:                       | :heavy_check_mark: | :x:                |
@@ -27,7 +28,7 @@ CMake 3.14+ is required to build `tolua` and cross-compiling.
 > [disccusion](https://discussions.unity.com/t/plugins-folder-inside-a-unity-package-does-it-have-to-be-on-the-root-folder-or-not/934638/2)
 > for newer version of Unity.
 
-### Windows (x86, x86_64)
+### Windows
 When targeting Windows, MINGW is preferred over MSVC (luajit options not supported).
 
 #### MSVC (WIP)
@@ -42,7 +43,7 @@ Visual Studio 2017+ should work (Tested for Visual Studio 2022)
 > IMPORTANT: Symbols from LuaJIT is stuck for exporting to shared library now.
 > Refer to [#1341](https://github.com/LuaJIT/LuaJIT/issues/1341) for any progress.
 
-#### MinGW (using MSYS2)
+#### MSYS2
 Install MSYS2 and prepare MSYS2 environment and toolchains.
 
 ```bash
@@ -61,7 +62,7 @@ To build, symply run:
 $ ./build_tolua_windows_mingw.sh
 ```
 
-### Android (arm64)
+### Android
 To build for Android, you need to install the Android NDK and Ninja.
 
 Set environment variable `ANDROID_NDK_HOME` to the path of the NDK,
@@ -84,14 +85,14 @@ $ ANDROID_NDK_HOME=C:/path/to/android-ndk-r27c ./build_tolua_android_arm64.sh
 $ ANDROID_NDK_HOME=/path/to/android-ndk-r27c ./build_tolua_android_arm64.sh
 ```
 
-### macOS (universal)
+### macOS
 Xcode is needed for macOS.
 
 ```bash
 $ ./build_tolua_osx_universal.sh
 ```
 
-### iOS (arm64)
+### iOS
 Xcode is needed to build for iOS.
 
 ```bash

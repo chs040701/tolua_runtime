@@ -28,6 +28,8 @@ if (LJ_ENABLE_LUA52COMPAT)
     set(LUAJIT_XCFLAGS "${LUAJIT_XCFLAGS} -DLUAJIT_ENABLE_LUA52COMPAT")
 endif ()
 
+set(MSYSTEM $ENV{MSYSTEM})
+
 if (WIN32 AND NOT CYGWIN)
     # LuaJIT compiler options (other than LUAJIT_DISABLE_GC64) using Makefile are not supported.
     if (CMAKE_GENERATOR MATCHES "Visual Studio")
@@ -43,14 +45,14 @@ if (WIN32 AND NOT CYGWIN)
                 COMMENT "Building LuaJIT for Windows (${CMAKE_GENERATOR_PLATFORM})..."
             )
         else ()
-            message(FATAL_ERROR "Platforms supported: ${SUPPORTED_GENERATOR_PLATFORMS}. Provided: ${CMAKE_GENERATOR_PLATFORM}")
+            message(FATAL_ERROR "Platforms supported: ${SUPPORTED_GENERATOR_PLATFORMS}. Current: ${CMAKE_GENERATOR_PLATFORM}")
         endif ()
     elseif (MINGW)
-        set(MSYSTEMS MINGW32 MINGW64)
+        set(SUPPORTED_MSYSTEMS MINGW32 MINGW64)
         set(TARGET_ARCHS x86 x86_64)
-        list(FIND MSYSTEMS "$ENV{MSYSTEM}" MSYSTEM_INDEX)
+        list(FIND SUPPORTED_MSYSTEMS "${MSYSTEM}" MSYSTEM_INDEX)
         if (MSYSTEM_INDEX EQUAL -1)
-            message(FATAL_ERROR "MSYS environment supported: ${MSYSTEMS}. Current: $ENV{MSYSTEM}")
+            message(FATAL_ERROR "MSYS environments supported: ${MSYSTEMS}. Current: ${MSYSTEM}")
         endif ()
 
         list(GET TARGET_ARCHS ${MSYSTEM_INDEX} TARGET_ARCH)
@@ -80,50 +82,56 @@ elseif (ANDROID)
             message(FATAL_ERROR "ANDROID_NDK is not set.")
         endif ()
     endif ()
+    file(TO_CMAKE_PATH "${ANDROID_NDK}" ANDROID_NDK)
 
-    if (NOT (ANDROID_ABI STREQUAL "arm64-v8a"))
-        message(FATAL_ERROR "ANDROID_ABI is not arm64-v8a.")
+    set(ANDROID_ARCHS arm64-v8a armeabi-v7a)
+    list(FIND ANDROID_ARCHS ${ANDROID_ABI} ARCH_INDEX)
+    if (ARCH_INDEX EQUAL -1)
+        message(FATAL_ERROR "Android ABIs supported: $ANDROID_ARCHS}. Current: ${ANDROID_ABI}")
     endif ()
 
     # https://stackoverflow.com/a/47896799/3614952
     set(MAKE_SHELL_CMD 0)
-    if ("$ENV{MSYSTEM}" STREQUAL "MINGW64")
-        set(MINGW64 1)
+    if (CMAKE_HOST_WIN32)
+        if ("${MSYSTEM}" STREQUAL "")
+            set(MAKE_SHELL_CMD 1)
+        endif ()
     endif ()
-    if (CMAKE_HOST_UNIX OR MINGW64)
-        string(TOLOWER ${CMAKE_HOST_SYSTEM_NAME} HOST_SYSTEM_NAME_LOWER)
-        set(NDK_BIN_DIR ${ANDROID_NDK}/toolchains/llvm/prebuilt/${HOST_SYSTEM_NAME_LOWER}-x86_64/bin)
-        set(NDK_CROSS ${NDK_BIN_DIR}/aarch64-linux-android-)
-        set(NDK_CC ${NDK_BIN_DIR}/aarch64-linux-android${ANDROID_PLATFORM}-clang)
-        set(NDK_AR ${NDK_BIN_DIR}/llvm-ar)
-        set(NDK_STRIP ${NDK_BIN_DIR}/llvm-strip)
-        set(MAKE_EXE make)
-    elseif (CMAKE_HOST_WIN32)
-        set(NDK_BIN_DIR ${ANDROID_NDK}\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin)
-        set(NDK_CROSS ${NDK_BIN_DIR}\\aarch64-linux-android-)
-        set(NDK_CC ${NDK_BIN_DIR}\\aarch64-linux-android${ANDROID_PLATFORM}-clang.cmd)
-        set(NDK_AR ${NDK_BIN_DIR}\\llvm-ar.exe)
-        set(NDK_STRIP ${NDK_BIN_DIR}\\llvm-strip.exe)
-        set(MAKE_SHELL_CMD 1)
-        set(MAKE_EXE ${ANDROID_NDK}\\prebuilt\\windows-x86_64\\bin\\make.exe)
-    endif ()
+
+    string(TOLOWER ${CMAKE_HOST_SYSTEM_NAME} HOST_SYSTEM_NAME_LOWER)
+    set(NDK_MAKE ${ANDROID_NDK}/prebuilt/${HOST_SYSTEM_NAME_LOWER}-x86_64/bin/make)
+    set(NDK_BIN_DIR ${ANDROID_NDK}/toolchains/llvm/prebuilt/${HOST_SYSTEM_NAME_LOWER}-x86_64/bin)
+    set(NDK_CROSS_ARCHS
+        ${NDK_BIN_DIR}/aarch64-linux-android-
+        ${NDK_BIN_DIR}/arm-linux-androideabi-
+    )
+    set(NDK_CC_ARCHS
+        ${NDK_BIN_DIR}/aarch64-linux-android${ANDROID_PLATFORM}-clang
+        ${NDK_BIN_DIR}/armv7a-linux-androideabi${ANDROID_PLATFORM}-clang
+    )
+    list(GET NDK_CROSS_ARCHS ${ARCH_INDEX} NDK_CROSS)
+    list(GET NDK_CC_ARCHS ${ARCH_INDEX} NDK_CC)
+    set(NDK_AR ${NDK_BIN_DIR}/llvm-ar)
+    set(NDK_STRIP ${NDK_BIN_DIR}/llvm-strip)
 
     # https://stackoverflow.com/questions/70594767/cmake-appends-backslash-to-command-added-by-add-custom-target
     set(NDK_DYNAMIC_CC ${NDK_CC} "-fPIC")
     set(NDK_TARGET_AR ${NDK_AR} "rcus")
     add_custom_command(
         OUTPUT ${LUAJIT_LIB_PATH}
-        COMMAND ${MAKE_EXE} 
+        COMMAND ${NDK_MAKE} 
             $<${MAKE_SHELL_CMD}:SHELL=cmd>
             TARGET_SYS=Linux
             clean
-        COMMAND ${MAKE_EXE} 
+        COMMAND ${NDK_MAKE} 
             $<${MAKE_SHELL_CMD}:SHELL=cmd>
+            $<$<IN_LIST:${ARCH_INDEX},1>:HOST_CC="gcc -m32">
             CROSS=${NDK_CROSS}
             STATIC_CC=${NDK_CC}
             DYNAMIC_CC="${NDK_DYNAMIC_CC}"
             CCDEBUG="$<$<CONFIG:Debug>: -g>"
             XCFLAGS=${LUAJIT_XCFLAGS}
+            $<$<IN_LIST:${ARCH_INDEX},1>:TARGET_CFLAGS="-mcpu=cortex-a9 -mfloat-abi=softfp">
             TARGET_LD=${NDK_CC}
             TARGET_AR="${NDK_TARGET_AR}"
             TARGET_STRIP=${NDK_STRIP}
