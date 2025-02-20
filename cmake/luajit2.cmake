@@ -141,18 +141,24 @@ elseif (ANDROID)
         COMMENT "Building LuaJIT for Android (${ANDROID_ABI})"
     )
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    if (CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64;arm64")
-        set(LUAJIT_BUILD_SCRIPT_PATH ${CMAKE_SOURCE_DIR}/make_luajit2_osx_universal.sh)
-    else ()
-        message(FATAL_ERROR "Only universal (x86_64;arm64) is supported.")
-    endif ()
+    list(APPEND MAC_PLATFORMS "MAC" "MAC_ARM64" "MAC_UNIVERSAL")
+    list(FIND MAC_PLATFORMS ${PLATFORM} PLATFORM_INDEX)
+    if ("${PLATFORM_INDEX}" EQUAL "-1")
+        message(FATAL_ERROR " Invalid PLATFORM specified! Current value: ${PLATFORM}.\n"
+                " Supported PLATFORM values: \n * ${MAC_PLATFORMS}")
+    endif()
+
+    list(APPEND PLATFORM_SCRIPTS "x64" "arm64" "universal")
+    list(GET PLATFORM_SCRIPTS ${PLATFORM_INDEX} BUILD_SCRIPT)
+    set(LUAJIT_BUILD_SCRIPT_PATH ${CMAKE_SOURCE_DIR}/make_luajit2_osx_${BUILD_SCRIPT}.sh)
+
     add_custom_command(
         OUTPUT ${LUAJIT_LIB_PATH}
         COMMAND ${CMAKE_COMMAND} -E env MACOSX_DEPLOYMENT_TARGET=${DEPLOYMENT_TARGET} LUAJIT_XCFLAGS=${LUAJIT_XCFLAGS}
                 ${LUAJIT_BUILD_SCRIPT_PATH} $<$<CONFIG:Debug>:--debug>
         COMMAND ${CMAKE_COMMAND} -E copy ${LUAJIT_SOURCE_ROOT}/libluajit.a ${LUAJIT_LIB_PATH}
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        COMMENT "Building LuaJIT for macOS (${CMAKE_OSX_ARCHITECTURES})"
+        COMMENT "Building LuaJIT for macOS (${PLATFORM}: ${CMAKE_OSX_ARCHITECTURES})"
     )
 elseif (IOS)
     if (CMAKE_OSX_ARCHITECTURES STREQUAL "arm64")

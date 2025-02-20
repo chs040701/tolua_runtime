@@ -21,6 +21,8 @@ CMake 3.14+ is required to build `tolua` and cross-compiling.
 | Android (arm)     | :heavy_check_mark: | :x:                       | :x:                | :x:                |
 | Android (arm64)   | :heavy_check_mark: | :heavy_check_mark: (gcc)  | :heavy_check_mark: | :heavy_check_mark: |
 | macOS (universal) | :x:                | :x:                       | :heavy_check_mark: | :x:                |
+| macOS (arm64)     | :x:                | :x:                       | :heavy_check_mark: | :x:                |
+| macOS (x64)       | :x:                | :x:                       | :heavy_check_mark: | :x:                |
 | iOS (arm64)       | :x:                | :x:                       | :heavy_check_mark: | :x:                |
 
 > NOTE: Every predefiend build script would install the target library to *Plugins*
@@ -65,6 +67,9 @@ $ ./build_tolua_windows_mingw.sh
 ### Android
 To build for Android, you need to install the Android NDK and Ninja.
 
+The default ANDROID_NATIVE_API_LEVEL is set to 21.
+
+
 Set environment variable `ANDROID_NDK_HOME` to the path of the NDK,
 e.g. `export ANDROID_NDK_HOME=/path/to/android-ndk-r27c` on UNIX-like systems, or
 pass `-DANDROID_NDK=/path/to/android-ndk-r27c` to CMake command.
@@ -78,22 +83,28 @@ Using [Scoop](https://scoop.sh/) or other package managers to install `gcc`.
 For MinGW, it is the same as build on UNIX-like system.
 ```bash
 $ ANDROID_NDK_HOME=C:/path/to/android-ndk-r27c ./build_tolua_android_arm64.sh
+$ ANDROID_NDK_HOME=C:/path/to/android-ndk-r27c ./build_tolua_android_arm.sh
 ```
 
 #### Cross-compiling on UNIX-like
 ```bash
 $ ANDROID_NDK_HOME=/path/to/android-ndk-r27c ./build_tolua_android_arm64.sh
+$ ANDROID_NDK_HOME=/path/to/android-ndk-r27c ./build_tolua_android_arm.sh
 ```
 
 ### macOS
 Xcode is needed for macOS.
+The default DEPLOYMENT_TARGET is set to 11.0.
 
 ```bash
 $ ./build_tolua_osx_universal.sh
+$ ./build_tolua_osx_arm64.sh
+$ ./build_tolua_osx_x64.sh
 ```
 
 ### iOS
 Xcode is needed to build for iOS.
+The default DEPLOYMENT_TARGET is set to 13.0.
 
 ```bash
 $ ./build_tolua_ios_arm64.sh
