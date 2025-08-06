@@ -113,6 +113,7 @@ if (MSVC)
     set_property(TARGET tolua PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif ()
 if (WIN32 AND NOT CYGWIN)
+    set(CMAKE_C_FLAGS "/utf-8")
     target_compile_definitions(tolua PRIVATE LUA_BUILD_AS_DLL)
 endif ()
 
