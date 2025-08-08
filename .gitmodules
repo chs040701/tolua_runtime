@@ -6,7 +6,7 @@
 	url = git@github.com:lunarmodules/luasocket.git
 [submodule "lpeg"]
 	path = lpeg
-	url = git@github.com:alex4814/lpeg-luajit.git
+	url = git@github.com:chs040701/lpeg-luajit.git
 	branch = luajit-v2.1
 [submodule "luajit-2.1"]
 	path = luajit-2.1
