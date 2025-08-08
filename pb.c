@@ -29,7 +29,7 @@
 #include <lualib.h>
 #include <lauxlib.h>
 
-#ifdef _WIN32_WCE
+#if defined(_WIN32_WCE) || defined(_MSC_VER)
 #define PACKED_DECL 
 #pragma pack(1)
 #else
@@ -45,7 +45,7 @@ struct __una_16  { int16_t  x PACKED_DECL; };
 struct __una_f   { float    x PACKED_DECL; };
 struct __una_d   { double   x PACKED_DECL; };
 
-#ifdef _WIN32_WCE
+#if defined(_WIN32_WCE) || defined(_MSC_VER)
 #pragma pack
 #endif
 

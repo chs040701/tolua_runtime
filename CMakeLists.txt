@@ -68,10 +68,12 @@ set(LIB_SRC
     ${LPEG_SRC}
     ${STRUCT_SRC}
     ${CJSON_SRC}
+    ${PROTOBUF_SRC}
     ${LUASOCKET_SRC}
 )
 set_property(SOURCE ${LIB_SRC} PROPERTY COMPILE_DEFINITIONS LUA_LIB)
 
+add_subdirectory(luajit-2.1)
 # toLua Library
 if (WIN32 AND NOT CYGWIN)
     add_library(tolua SHARED
@@ -99,32 +101,80 @@ else ()
 endif ()
 set_property(TARGET tolua PROPERTY C_STANDARD 99)
 
-# Depends on LuaJIT
-include(${CMAKE_SOURCE_DIR}/cmake/luajit2.cmake)
-
-add_library(luajit2 STATIC IMPORTED)
-set_target_properties(luajit2 PROPERTIES 
-    IMPORTED_LOCATION ${LUAJIT_LIB_PATH}
-)
-add_dependencies(luajit2 luajit2_build)
-
 # Target options
 if (MSVC)
-    set_property(TARGET tolua PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+    set_property(TARGET tolua PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 endif ()
-if (WIN32 AND NOT CYGWIN)
+# toLua Library - 针对 macOS 优化
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    # 符号可见性控制
+    target_compile_options(tolua PRIVATE 
+        -fvisibility=hidden
+        -fvisibility-inlines-hidden
+    )
+    
+    # 链接时优化和符号剥离
+    target_link_options(tolua PRIVATE
+        "$<$<CONFIG:Release>:LINKER:-dead_strip>"
+        "$<$<CONFIG:Release>:LINKER:-x>"
+        "$<$<CONFIG:Release>:-Wl,-S>"  # 自动剥离调试符号
+    )
+
+    # 添加后处理命令 - 手动剥离符号
+    add_custom_command(TARGET tolua POST_BUILD
+        COMMAND strip -Sx "$<TARGET_FILE:tolua>"
+        COMMENT "Stripping symbols from macOS binary"
+        VERBATIM
+    )
+    
+    # 签名设置
+    add_custom_command(TARGET tolua POST_BUILD
+        COMMAND codesign --force --sign - "$<TARGET_FILE:tolua>"
+        COMMENT "Ad-hoc signing macOS binary"
+        VERBATIM
+    )
+elseif (WIN32 AND NOT CYGWIN)
     set(CMAKE_C_FLAGS "/utf-8")
-    target_compile_definitions(tolua PRIVATE LUA_BUILD_AS_DLL)
+    target_compile_definitions(tolua PRIVATE LUA_BUILD_AS_DLL LUA_CORE)
 endif ()
 
 # Link LuaJIT
-target_include_directories(tolua PRIVATE ${LUAJIT_SOURCE_ROOT})
-target_link_libraries(tolua PRIVATE "$<LINK_LIBRARY:WHOLE_ARCHIVE,luajit2>")
+set(LUAJIT_BUILD_TOOL OFF CACHE BOOL "Build the executable of LuaJIT" FORCE)
+include_directories(${CMAKE_SOURCE_DIR}/luajit-2.1/src)
+target_include_directories(tolua PRIVATE ${CMAKE_SOURCE_DIR}/luajit-2.1/)
+
+if ( WIN32 AND NOT CYGWIN )
+    target_compile_definitions(libluajit PRIVATE LUA_BUILD_AS_DLL)
+endif()
+target_link_libraries(tolua PRIVATE "$<LINK_LIBRARY:WHOLE_ARCHIVE,libluajit>")
+
 if (CMAKE_C_COMPILER_ID STREQUAL "GNU")
     target_link_options(tolua PRIVATE -Wl,--export-all-symbols)
 endif ()
 if (IOS)
     add_custom_command(TARGET tolua POST_BUILD
-        COMMAND /usr/bin/libtool -static -o $<TARGET_FILE:tolua> $<TARGET_FILE:tolua> $<TARGET_FILE:luajit2>
+        COMMAND /usr/bin/libtool -static -o $<TARGET_FILE:tolua> $<TARGET_FILE:tolua>
+    )
+elseif (ANDROID)
+    set_target_properties(tolua PROPERTIES
+        LINK_FLAGS_RELEASE "-s"  # 自动剥离符号
+        ANDROID_CPP_FEATURES "rtti exceptions"  # 明确控制特性
     )
 endif ()
+
+# if (NOT CMAKE_CROSSCOMPILING)
+#     set (EXEC_SRC_DIR
+#         ${TOLUA_SRC}
+#         ${LIB_SRC}
+#         ${CMAKE_SOURCE_DIR}/luajit-2.1/src/luajit.c
+#     )
+#     add_executable(lua ${EXEC_SRC_DIR})
+#     if (WIN32 AND NOT CYGWIN)
+#         target_compile_definitions(lua PRIVATE LUA_BUILD_AS_DLL LUA_CORE)
+#     endif ()
+#     target_include_directories(lua PRIVATE ${CMAKE_BINARY_DIR}/luajit-2.1/src)
+#     target_link_libraries(lua PRIVATE libluajit)
+#     if(WIN32)
+#       target_link_libraries(lua PRIVATE wsock32 ws2_32)
+#   endif()
+# endif()
